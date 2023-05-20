@@ -14,15 +14,16 @@ import { catchError, map } from 'rxjs/operators';
   // This will provide HttpClient to the entire class, making it available via this.http
     constructor(private http: HttpClient) { } 
 
-  public userRegistrationDetails (user: any): Observable<any>{
-    console.log(user);
-    return this.http.post(apiUrl + 'users', user).pipe(
+  public userRegistration (userDetails: any): Observable<any>{
+    console.log(userDetails);
+    return this.http.post(apiUrl + 'users', userDetails).pipe(
     catchError(this.handleError)
     )
   }
 
-  public userLogin (user: any): Observable<any>{
-    return this.http.post(apiUrl + 'login', user).pipe(
+  public userLogin (userDetails: any): Observable<any>{
+    console.log(userDetails);
+    return this.http.post(apiUrl + 'login', userDetails).pipe(
     catchError(this.handleError)
     )
   }
