@@ -1,0 +1,16 @@
+<mat-toolbar>
+    <div class="extra-section">
+      <span class="app-name">MyFlix</span>
+    </div>
+    <span class="example-spacer"></span>
+    <div class="toolbar-icons">
+    <a mat-button (click)="toMovies()" target="_blank" matTooltip="All movies">Home</a>
+      <button mat-icon-button (click)="toProfile()" class="person-icon" aria-label="Person icon-button" matTooltip="My Profile">
+        <mat-icon>person</mat-icon>
+      </button>
+      <button mat-icon-button (click)="logOut()" class="logout-icon" aria-label="Logout icon-button" matTooltip="Log out">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+  
