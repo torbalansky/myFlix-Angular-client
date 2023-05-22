@@ -175,21 +175,20 @@ import { catchError, map } from 'rxjs/operators';
   
   //DELETE requests
   // Making the api call for the delete user endpoint
+
   deleteUser(): Observable<any> {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + token,
-    });
-    console.log(headers);
-  
-    return this.http
-      .delete(apiUrl + 'users/' + user.Username, { headers: headers }) // Pass headers as options object
-      .pipe(
-        map(this.extractResponseData),
-        catchError(this.handleError)
-      );
-  }  
+    return this.http.delete(apiUrl + 'users/' + user.Username, {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + token,
+      }),
+      responseType: 'text',
+    }).pipe(
+      map(this.extractResponseData),
+      catchError(this.handleError)
+    );
+  }
 
   // Non-typed response extraction
   private extractResponseData(res: any): any {
@@ -198,6 +197,7 @@ import { catchError, map } from 'rxjs/operators';
   }
 
   private handleError(error: HttpErrorResponse): any {
+    console.error('Error:', error);
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     }
@@ -207,9 +207,10 @@ import { catchError, map } from 'rxjs/operators';
     else {
       console.error(
         `Error Status code ${error.status}, ` +
-        `Error body is: ${error.error}`);
+        `Error body is: ${JSON.stringify(error.error)}`); 
     }
     return throwError (() => new Error ('Something went wrong')
     );
   }
+  
 }

@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,7 +21,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     public fetchApiData: FetchApiDataService,
     public snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -70,28 +71,17 @@ export class UserProfileComponent implements OnInit {
   } 
 
   deleteUser(): void {
-    this.fetchApiData.deleteUser().subscribe(
-      (response) => {
-        if (response.success) {
-          localStorage.clear();
-          this.router.navigate(['welcome']);
-          this.snackBar.open('User successfully deleted', 'OK', {
-            duration: 2000,
-          });
-        } else {
-          const errorMessage = response.message || 'An error occurred';
-          this.snackBar.open(errorMessage, 'OK', {
-            duration: 2000,
-          });
-        }
-      },
-      (error) => {
-        const errorMessage = error?.error?.message || 'An error occurred';
-        this.snackBar.open(errorMessage, 'OK', {
-          duration: 2000,
-        });
-      }
-    );
-  }  
+    this.fetchApiData.deleteUser().subscribe(() => {
+      localStorage.clear(); // Clear local storage upon successful deletion
+      this.router.navigate(['/welcome']); // Navigate to the welcome page
+      this.snackBar.open('User successfully deleted', 'OK', {
+        duration: 2000
+      });
+    }, (error) => {
+      this.snackBar.open(error, 'OK', {
+        duration: 2000
+      });
+    });
+  } 
   
 }  
