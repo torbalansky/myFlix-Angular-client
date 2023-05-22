@@ -2,11 +2,12 @@
 
 <div class="container">
   <div class="profile-container">
-    <h1>Profile</h1>
-    <p>Username: {{ user.Username }}</p>
-    <p>Email: {{ user.Email }}</p>
-    
-    <h2>Update Profile</h2>
+    <h1>Your profile:</h1>
+    <p><strong>Username</strong>: {{ user.Username }}</p>
+    <p><strong>E-mail</strong>: {{ user.Email }}</p>
+  </div>
+  <div class="update-profile-container">
+    <h2>Update your info:</h2>
 
     <form>
       <mat-form-field>
@@ -41,16 +42,17 @@
     <div class="button-container">
       <button 
         mat-raised-button (click)="editUser()" 
-        color="primary" style="margin-right: 20px;">Update account</button>
+        color="primary" style="margin-right: 20px;" matTooltip="Update">Update account</button>
 
       <button 
         mat-raised-button (click)="deleteUser()" 
-        color="accent">Delete account</button>
+        color="accent"
+        matTooltip="Warning: Deleting your account is irreversible">Delete account</button>
     </div>
   </div>
 
-  <div class="favorite-movies">
-    <h2>Favorite Movies</h2>
+  <div class="favorite-movies-container">
+    <h2>Favorite Movies:</h2>
     <div class="movie-list">
       <mat-list-item *ngFor="let movie of favoriteMovies">
         <div class="movie-thumbnail">
