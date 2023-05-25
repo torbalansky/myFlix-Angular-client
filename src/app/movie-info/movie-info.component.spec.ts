@@ -15,6 +15,11 @@ describe('MovieInfoComponent', () => {
     fixture.detectChanges();
   });
 
+  /**
+   * Test case to check if the MovieInfoComponent is created.
+   * It verifies that the component instance is truthy.
+   */
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

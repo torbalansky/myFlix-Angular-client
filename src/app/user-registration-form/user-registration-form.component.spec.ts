@@ -10,10 +10,17 @@ describe('UserRegistrationFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [UserRegistrationFormComponent]
     });
+    // Create a fixture and get the component instance
     fixture = TestBed.createComponent(UserRegistrationFormComponent);
     component = fixture.componentInstance;
+     // Trigger change detection to initialize the component
     fixture.detectChanges();
   });
+
+  /**
+   * Test case to check if the UserRegistrationFormComponent is created.
+   * It verifies that the component instance is truthy.
+   */
 
   it('should create', () => {
     expect(component).toBeTruthy();

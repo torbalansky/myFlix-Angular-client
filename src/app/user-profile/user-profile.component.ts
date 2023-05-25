@@ -29,6 +29,11 @@ export class UserProfileComponent implements OnInit {
     this.getUser();
   }
 
+  /**
+     * Retrieves the user data from the API.
+     * Populates the user details and favorite movies.
+     */
+
   getUser(): void {
     this.fetchApiData.getOneUser().subscribe((response: any) => {
       this.user = response;
@@ -48,6 +53,12 @@ export class UserProfileComponent implements OnInit {
       });
     });
   }  
+
+  /**
+   * Updates the user details.
+   * Makes a request to the API to update the user data.
+   * Shows a snackbar message upon success or failure.
+   */
 
   editUser(): void {
     const updatedUser = {
@@ -70,6 +81,15 @@ export class UserProfileComponent implements OnInit {
     });
   } 
 
+
+   /**
+   * Deletes the user account.
+   * Makes a request to the API to delete the user.
+   * Clears local storage upon successful deletion.
+   * Navigates to the welcome page.
+   * Shows a snackbar message upon success or failure.
+   */
+
   deleteUser(): void {
     this.fetchApiData.deleteUser().subscribe(() => {
       localStorage.clear(); // Clear local storage upon successful deletion
@@ -84,6 +104,15 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Removes a movie from the user's favorite list.
+   * Makes a request to the API to delete the movie from favorites.
+   * Updates the favoriteMovies array by removing the deleted movie.
+   * Shows a snackbar message upon success or failure.
+   * @param {string} movieId - The ID of the movie to remove from favorites.
+   */
+  
   removeFavoriteMovie(movieId: string): void {
     this.fetchApiData.deleteFavoriteMovie(movieId).subscribe(() => {
       // Update the favoriteMovies array by removing the deleted movie

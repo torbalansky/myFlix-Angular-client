@@ -22,6 +22,13 @@ export class UserLoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+     * Logs in the user by making an API call to authenticate the credentials.
+     * If successful, stores the user details and token in the local storage,
+     * closes the dialog, displays a success message, and navigates to the movies page.
+     * If unsuccessful, displays an error message.
+     */
+
   loginUser(): void {
     this.fetchApiData.userLogin(this.loginData).subscribe((result) => {
       localStorage.setItem('user', JSON.stringify(result.user));

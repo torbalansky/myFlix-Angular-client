@@ -10,6 +10,11 @@ describe('FetchApiDataService', () => {
     service = TestBed.inject(FetchApiDataService);
   });
 
+  /**
+   * Test case to check if the FetchApiDataService is created.
+   * It verifies that the service instance is truthy.
+   */
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });

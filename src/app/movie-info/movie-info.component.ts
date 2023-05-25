@@ -16,6 +16,11 @@ export class MovieInfoComponent implements OnInit {
     }
   ) { }
 
+/**
+   * Initializes the movie info component.
+   * This method is executed when the component is created.
+   */
+
   ngOnInit(): void { }
 
 }

@@ -5,14 +5,28 @@ import { catchError, map } from 'rxjs/operators';
 
   //Declaring the api url that will provide data for the client app
   const apiUrl = "https://torbalansk-myflix-app.herokuapp.com/"
+
+  /**
+ * Service for fetching data from the API.
+ */
+
   @Injectable({
     providedIn: 'root'
   })
 
   export class FetchApiDataService {
-  // Inject the HttpClient module to the constructor params
-  // This will provide HttpClient to the entire class, making it available via this.http
+  /**
+   * Constructs the FetchApiDataService.
+   * @param {HttpClient} http - The HttpClient module for making HTTP requests.
+   */
+
     constructor(private http: HttpClient) { } 
+
+  /**
+   * Makes a request to register a new user.
+   * @param {any} userDetails - The user registration details.
+   * @returns {Observable<any>} The API response.
+   */
 
   public userRegistration (userDetails: any): Observable<any>{
     console.log(userDetails);
@@ -20,6 +34,12 @@ import { catchError, map } from 'rxjs/operators';
     catchError(this.handleError)
     )
   }
+
+  /**
+     * Makes a request to authenticate a user.
+     * @param {any} userDetails - The user login details.
+     * @returns {Observable<any>} The API response.
+     */
 
   public userLogin (userDetails: any): Observable<any>{
     console.log('Login request payload:', userDetails);
@@ -29,7 +49,12 @@ import { catchError, map } from 'rxjs/operators';
   }
   
   // GET requests
-  // Api call to get all movies endpoint
+
+  /**
+     * Retrieves all movies from the API.
+     * @returns {Observable<any>} Array of movies.
+     */
+
   getAllMovies(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {
@@ -43,7 +68,18 @@ import { catchError, map } from 'rxjs/operators';
     );
   }
 
-  // Api call to get one movie endpoint
+   /**
+   * Retrieves a single movie from the API.
+   * @param {string} title - The title of the movie.
+   * @returns {Observable<any>} The movie object.
+   */
+
+  // ...
+
+  // Other methods and comments omitted for brevity
+
+  // ...
+
   getOneMovie(title: string): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies/' + title, {
@@ -195,6 +231,13 @@ import { catchError, map } from 'rxjs/operators';
     const body = res;
     return body || {};
   }
+
+
+  /**
+   * Handles HTTP errors and returns an appropriate error response.
+   * @param {HttpErrorResponse} error - The HTTP error response.
+   * @returns {any} The error response.
+   */
 
   private handleError(error: HttpErrorResponse): any {
     console.error('Error:', error);
