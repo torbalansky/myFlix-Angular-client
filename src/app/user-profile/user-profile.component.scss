@@ -45,14 +45,11 @@ h1 {
     width: 100%;
     margin-bottom: 50px;
 }
-  
-.favorite-movies h2 {
-    margin-bottom: 10px;
-}
-  
+    
 .movie-list {
     display: flex;
     flex-direction: row;
+    position: relative;
 }
   
 .movie-thumbnail {
@@ -66,6 +63,15 @@ h1 {
     height: auto;
     border-radius: 10px;
     margin-right: 40px;
+    margin-top: 20px;
+}
+
+.delete-fav-btn {
+  position: absolute;
+  font-size: 14px;
+  width: 200px;
+  bottom: -40px;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {

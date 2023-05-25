@@ -58,6 +58,9 @@
         <div class="movie-thumbnail">
           <img [src]="movie.ImagePath" alt="Movie Thumbnail" />
         </div>
+        <button mat-icon-button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"> Remove movie
+          <mat-icon>delete</mat-icon>
+        </button>
         <div matLine>
           <div>{{ movie.Title }}</div>
         </div>

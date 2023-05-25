@@ -82,6 +82,21 @@ export class UserProfileComponent implements OnInit {
         duration: 2000
       });
     });
-  } 
+  }
+
+  removeFavoriteMovie(movieId: string): void {
+    this.fetchApiData.deleteFavoriteMovie(movieId).subscribe(() => {
+      // Update the favoriteMovies array by removing the deleted movie
+      this.favoriteMovies = this.favoriteMovies.filter(movie => movie._id !== movieId);
+      this.snackBar.open('Movie removed from favorites', 'OK', {
+        duration: 2000
+      });
+    }, (error) => {
+      console.error(error);
+      this.snackBar.open('Failed to remove movie from favorites', 'OK', {
+        duration: 2000
+      });
+    });
+  }
   
 }  
