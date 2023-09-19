@@ -1,3 +1,8 @@
 [build]
 command = "ng build --configuration=production"
 publish = "dist/my-flix-angular-client"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
