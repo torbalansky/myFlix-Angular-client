@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
   //Declaring the api url that will provide data for the client app
-  const apiUrl = "https://torbalansk-myflix-app.herokuapp.com/"
+  const apiUrl = "https://movie-api-6-git-master-torbalansky.vercel.app/"
 
   /**
  * Service for fetching data from the API.
