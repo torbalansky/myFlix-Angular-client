@@ -8,9 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Development app link
+myFlix-Angular is hosted on Netlify. Click the link below to access the app:
 
-https://torbalansky.github.io/myFlix-Angular-client/
+[Visit myFlix on Netlify](https://myflix-angular-client-torbalansky.netlify.app/)
 
 ## Features
 - **Welcome View**: Upon launching the app, users are greeted with a welcome view. From here, they have the option to either log in or register a new account.
