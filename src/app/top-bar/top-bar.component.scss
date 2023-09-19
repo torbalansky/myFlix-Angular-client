@@ -14,3 +14,22 @@
     align-items: center;
   }
   
+@media (max-width: 768px) {
+  .extra-section {
+    font-size: 20px; 
+  }
+
+  .toolbar-icons {
+    margin-right: 20px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .extra-section {
+    font-size: 20px; 
+    margin-left: 10px; 
+  }
+
+  .toolbar-icons {
+    margin-right: 20px; 
+  }}

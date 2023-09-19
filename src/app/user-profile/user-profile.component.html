@@ -1,70 +1,66 @@
 <app-top-bar></app-top-bar>
 
-<div class="container">
-  <div class="profile-container">
-    <h1>Your profile:</h1>
-    <p><strong>Username</strong>: {{ user.Username }}</p>
-    <p><strong>E-mail</strong>: {{ user.Email }}</p>
-  </div>
-  <div class="update-profile-container">
-    <h2>Update your info:</h2>
+  <div class="container">
+    <div class="profile-update-container">
+      <div class="profile-container">
+        <h1>Your profile:</h1>
+        <p><strong>Username</strong>: {{ user.Username }}</p>
+        <p><strong>E-mail</strong>: {{ user.Email }}</p>
+      </div>
+      <div class="update-profile-container">
+        <h2>Update your info:</h2>
+        <form>
+          <mat-form-field>
+            <input 
+              matInput [(ngModel)]="userDetails.Username" 
+              placeholder="Username" 
+              name="Username" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input 
+              matInput [(ngModel)]="userDetails.Password" 
+              minlength="8" type="password" 
+              placeholder="Password"
+              name="Password" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input 
+              matInput [(ngModel)]="userDetails.Email" 
+              type="email" 
+              placeholder="Email" 
+              name="Email" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input 
+              matInput [(ngModel)]="userDetails.Birthday" 
+              type="date" 
+              placeholder="Birthday" 
+              name="Birthday">
+          </mat-form-field>
+        </form>
+        <div class="button-container">
+          <button 
+            mat-raised-button (click)="editUser()" 
+            color="primary" style="margin-right: 20px;" matTooltip="Update">Update account</button>
+          <button 
+            mat-raised-button (click)="deleteUser()" 
+            color="accent"
+            matTooltip="Warning: Deleting your account is irreversible">Delete account</button>
+        </div>
+      </div>
+    </div>
 
-    <form>
-      <mat-form-field>
-        <input 
-          matInput [(ngModel)]="userDetails.Username" 
-          placeholder="Username" 
-          name="Username" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input 
-          matInput [(ngModel)]="userDetails.Password" 
-          minlength="8" type="password" 
-          placeholder="Password"
-          name="Password" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input 
-          matInput [(ngModel)]="userDetails.Email" 
-          type="email" 
-          placeholder="Email" 
-          name="Email" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input 
-          matInput [(ngModel)]="userDetails.Birthday" 
-          type="date" 
-          placeholder="Birthday" 
-          name="Birthday">
-      </mat-form-field>
-    </form>
-
-    <div class="button-container">
-      <button 
-        mat-raised-button (click)="editUser()" 
-        color="primary" style="margin-right: 20px;" matTooltip="Update">Update account</button>
-
-      <button 
-        mat-raised-button (click)="deleteUser()" 
-        color="accent"
-        matTooltip="Warning: Deleting your account is irreversible">Delete account</button>
+    <div class="favorite-movies-container">
+      <h2>Favorite Movies:</h2>
+      <div class="movie-list">
+        <mat-list-item *ngFor="let movie of favoriteMovies">
+          <div class="movie-thumbnail">
+            <img [src]="movie.ImagePath" alt="Movie Thumbnail" />
+          </div>
+          <button mat-icon-button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"> Remove
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      </div>
     </div>
   </div>
-
-  <div class="favorite-movies-container">
-    <h2>Favorite Movies:</h2>
-    <div class="movie-list">
-      <mat-list-item *ngFor="let movie of favoriteMovies">
-        <div class="movie-thumbnail">
-          <img [src]="movie.ImagePath" alt="Movie Thumbnail" />
-        </div>
-        <button mat-icon-button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"> Remove movie
-          <mat-icon>delete</mat-icon>
-        </button>
-        <div matLine>
-          <div>{{ movie.Title }}</div>
-        </div>
-      </mat-list-item>
-    </div>
-  </div>
-</div>

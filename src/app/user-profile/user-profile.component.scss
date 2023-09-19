@@ -1,127 +1,115 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-    padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 10px;
 }
 
 h1, h2, p {
-    font-family: cursive;
+  font-family: cursive;
+}
+
+.profile-update-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .profile-container {
-    margin-bottom: 30px;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 10px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+  flex: 1;
 }
 
 .profile-container p {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 h1 {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .update-profile-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-    border: 2px solid rgb(247, 127, 147);
-    border-radius: 10px;
-    padding: 20px;
+  flex: 1; 
+  border: 2px solid rgb(247, 127, 147);
+  border-radius: 10px;
+  padding: 20px;
+  margin-right: 50px;
 }
 
 .update-profile-container h2 {
-    text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
-  
+
 .favorite-movies-container {
-    width: 100%;
-    margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
-    
+
 .movie-list {
-    display: flex;
-    flex-direction: row;
-    position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-  
+
 .movie-thumbnail {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 }
-  
+
 .movie-thumbnail img {
-    width: 150px;
-    height: auto;
-    border-radius: 10px;
-    margin-right: 40px;
-    margin-top: 20px;
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
 .delete-fav-btn {
-  position: absolute;
   font-size: 14px;
   width: 200px;
-  bottom: -40px;
+  margin-top: 10px;
   align-items: center;
 }
 
-@media screen and (min-width: 768px) {
-  
-    .container {
-      padding: 0 20px; 
-    }
-  
-    .update-profile-container {
-      max-width: 500px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .button-container {
-      display: flex;
+@media (max-width: 768px) {
+  .user-details-container {
       flex-direction: column;
-      margin-top: 10px;
-      align-items: stretch; 
-    }
-  
-    .button-container button {
-      margin-bottom: 10px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
+      align-items: center;
+  }
 }
 
-@media screen and (max-width: 767px) {
-    .movie-list {
-      display: flex;
-      flex-direction: column; 
-      align-items: center; 
-      overflow-y: auto; 
-      max-height: 300px; 
-    }
-  
-    .movie-thumbnail {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px; 
-    }
-  
-    .movie-thumbnail img {
-      width: 150px;
-      height: auto;
-      border-radius: 10px;
-      margin-right: 0; 
-    }
+@media (max-width: 480px) {
+  h1 {
+      font-size: 18px;
   }
-  
+
+  p {
+      font-size: 14px;
+  }
+
+  .update-profile-container h2 {
+      font-size: 16px;
+  }
+
+  .movie-thumbnail img {
+      width: 100%;
+      max-width: 200px;
+  }
+
+  .delete-fav-btn {
+      font-size: 12px;
+      width: 100px;
+  }
+}
