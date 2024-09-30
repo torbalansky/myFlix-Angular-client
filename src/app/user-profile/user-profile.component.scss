@@ -1,115 +1,96 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  padding: 0 10px;
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
 }
 
-h1, h2, p {
-  font-family: cursive;
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .profile-update-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  gap: 20px;
 }
 
-.profile-container {
-  margin: 10px;
-  padding: 10px;
-  text-align: center;
+.profile-container, .update-profile-container {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
   flex: 1;
 }
 
-.profile-container p {
-  font-size: 16px;
+h1, h2 {
+  color: rgb(109, 62, 248);
 }
 
-h1 {
-  font-size: 20px;
-  font-weight: bold;
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
 }
 
-.update-profile-container {
-  flex: 1; 
-  border: 2px solid rgb(247, 127, 147);
-  border-radius: 10px;
-  padding: 20px;
-  margin-right: 50px;
-}
-
-.update-profile-container h2 {
-  text-align: center;
-  font-weight: bold;
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .favorite-movies-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 50px;
-  margin-top: 50px;
+  margin-top: 40px;
+  flex: 1;
 }
 
 .movie-list {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 15px;
 }
 
 .movie-thumbnail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
+  width: 100px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .movie-thumbnail img {
-  width: 150px;
+  width: 100%;
   height: auto;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
-.delete-fav-btn {
-  font-size: 14px;
-  width: 200px;
-  margin-top: 10px;
-  align-items: center;
+  border-radius: 8px;
 }
 
 @media (max-width: 768px) {
-  .user-details-container {
+  .profile-update-container {
       flex-direction: column;
-      align-items: center;
+  }
+  .button-container {
+      flex-direction: column;
+      align-items: stretch;
+  }
+  .favorite-movies-container {
+      text-align: center;
+  }
+  .movie-thumbnail {
+      width: 80px;
+      height: 120px;
   }
 }
 
 @media (max-width: 480px) {
   h1 {
-      font-size: 18px;
+      font-size: 24px;
   }
-
-  p {
-      font-size: 14px;
-  }
-
-  .update-profile-container h2 {
-      font-size: 16px;
-  }
-
-  .movie-thumbnail img {
-      width: 100%;
-      max-width: 200px;
-  }
-
-  .delete-fav-btn {
-      font-size: 12px;
-      width: 100px;
+  h2 {
+      font-size: 20px;
   }
 }

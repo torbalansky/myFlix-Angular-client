@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
   //Declaring the api url that will provide data for the client app
-  const apiUrl = "https://movie-api-eqfh-mnccd0sxy-torbalansky.vercel.app/"
+  const apiUrl = "https://movie-api-eqfh.vercel.app/"
 
   /**
  * Service for fetching data from the API.

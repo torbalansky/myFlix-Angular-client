@@ -6,6 +6,19 @@
         <h1>Your profile:</h1>
         <p><strong>Username</strong>: {{ user.Username }}</p>
         <p><strong>E-mail</strong>: {{ user.Email }}</p>
+        <div class="favorite-movies-container">
+          <h2>Favorite Movies:</h2>
+          <div class="movie-list">
+            <mat-list-item *ngFor="let movie of favoriteMovies">
+              <div class="movie-thumbnail">
+                <img [src]="movie.ImagePath" alt="Movie Thumbnail" />
+              </div>
+              <button mat-icon-button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"> Remove
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          </div>
+        </div>
       </div>
       <div class="update-profile-container">
         <h2>Update your info:</h2>
@@ -41,26 +54,12 @@
         <div class="button-container">
           <button 
             mat-raised-button (click)="editUser()" 
-            color="primary" style="margin-right: 20px;" matTooltip="Update">Update account</button>
+            color="primary" style="margin-right: 20px; margin-bottom: 10px;" matTooltip="Update">Update account</button>
           <button 
             mat-raised-button (click)="deleteUser()" 
-            color="accent"
+            color="accent" style="margin-right: 20px; margin-bottom: 10px;"
             matTooltip="Warning: Deleting your account is irreversible">Delete account</button>
         </div>
-      </div>
-    </div>
-
-    <div class="favorite-movies-container">
-      <h2>Favorite Movies:</h2>
-      <div class="movie-list">
-        <mat-list-item *ngFor="let movie of favoriteMovies">
-          <div class="movie-thumbnail">
-            <img [src]="movie.ImagePath" alt="Movie Thumbnail" />
-          </div>
-          <button mat-icon-button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"> Remove
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-list-item>
       </div>
     </div>
   </div>
