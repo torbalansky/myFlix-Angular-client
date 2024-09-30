@@ -60,7 +60,6 @@ mat-form-field {
   width: 100px;
   height: 150px;
   overflow: hidden;
-  border-radius: 8px;
 }
 
 .movie-thumbnail img {
@@ -93,4 +92,22 @@ mat-form-field {
   h2 {
       font-size: 20px;
   }
+}
+
+.delete-fav-btn {
+  background-color: red;
+  color: #e9e3e3;
+  width: max-content;
+  width: 100px;
+  margin-top: 5px;
+  border: none;
+  height: auto;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-fav-btn:hover {
+  transition: background-color 1.3s ease;
+  background-color: #5c6bc0;
 }

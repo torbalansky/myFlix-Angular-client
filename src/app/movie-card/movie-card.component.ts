@@ -67,7 +67,7 @@ export class MovieCardComponent {
         title: name,
         content: description
       },
-      width: '280px'
+      width: '500px'
     });
   }
 
