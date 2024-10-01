@@ -1,33 +1,65 @@
-<mat-card>
-    <mat-card-header>
+<mat-card class="login-card">
+  <mat-card-header>
     <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form>
-        <mat-form-field>
-          <input 
+  </mat-card-header>
+  <mat-card-content>
+    <form #loginForm="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input 
           matInput 
           [(ngModel)]="loginData.Username" 
-          placeholder="Username" 
+          placeholder="Enter your username" 
           type="text" 
-          name="Username" required>
-        </mat-form-field>
-        <mat-form-field>
-          <input 
+          name="Username" 
+          required
+          #username="ngModel"
+          matTooltip="Enter your username."
+          matTooltipPosition="above"
+        />
+        <mat-error *ngIf="username.invalid && username.touched">
+          Username is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input 
           matInput 
           [(ngModel)]="loginData.Password" 
           type="password" 
-          placeholder="Password" 
-          name="Password" required>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button 
+          placeholder="Enter your password" 
+          name="Password" 
+          required
+          #password="ngModel"
+          matTooltip="Enter your password."
+          matTooltipPosition="above"
+        />
+        <mat-error *ngIf="password.invalid && password.touched">
+          Password is required.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button 
       mat-raised-button 
-      (click)="loginUser()" 
-      color="primary">
-        Login
-      </button>
-    </mat-card-actions>
-  </mat-card>
+      (click)="loginUser(loginForm)" 
+      color="primary"
+      matTooltip="Click to log in"
+      matTooltipPosition="below"
+      [disabled]="loginForm.invalid" 
+    >
+      Login
+    </button>
+    <button 
+      mat-button 
+      (click)="goBack()" 
+      color="warn" 
+      matTooltip="Go back without logging in"
+      matTooltipPosition="below"
+    >
+      Go Back
+    </button>
+  </mat-card-actions>
+</mat-card>

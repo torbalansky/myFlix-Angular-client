@@ -1,49 +1,74 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden;
+.top-bar {
+  background: linear-gradient(135deg, #6d3ef8, #8b6df8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
 }
 
 .extra-section {
   display: flex;
   align-items: center;
-  color: rgb(109, 62, 248);
   font-size: 32px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  flex-grow: 1;
   cursor: pointer;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.app-name {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.app-name:hover {
+  color: #ffd700;
+  transform: scale(1.05);
+}
+
+.video-icon {
+  color: #ffd700;
+  margin-right: 10px;
+  margin-left: 20px;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.video-icon:hover {
+  color: #ffffff;
+  transform: rotate(15deg) scale(1.1);
 }
 
 .toolbar-icons {
   display: flex;
   align-items: center;
-  margin-left: auto;
-  width: auto;
-  padding: 0;
-  margin: 0;
+}
+
+.mat-icon-button {
+  color: #ffffff;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  margin-right: 15px;
+  min-width: 48px;
+}
+
+.mat-icon-button:hover {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+.mat-icon {
+  font-size: 24px;
 }
 
 @media (max-width: 768px) {
   .extra-section {
-      font-size: 20px; 
-  }
-
-  .toolbar-icons {
-      margin-right: 20px; 
+    font-size: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .extra-section {
-      font-size: 20px; 
-  }
-
-  .toolbar-icons {
-      margin-right: 20px; 
+    font-size: 20px;
   }
 }

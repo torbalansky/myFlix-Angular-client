@@ -1,57 +1,99 @@
-<mat-card>
-    <mat-card-header>
+<mat-card class="registration-card">
+  <mat-card-header>
     <mat-card-title>Sign Up</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form>
-        <mat-form-field>
-          <input
-            matInput
-            [(ngModel)]="userData.Username"
-            placeholder="Username"
-            type="text"
-            name="Username"
-            required
-          >
-          </mat-form-field>
-          <mat-form-field>
-          <input
-            matInput
-            [(ngModel)]="userData.Password"
-            type = "password"
-            placeholder="Password"
-            name="Password"
-            required
-          >
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
-            [(ngModel)]="userData.Email"
-            type = "email"
-            placeholder="Email"
-            name="Email"
-            required
-          >
-        </mat-form-field>
-        <mat-form-field>
-          <input
-            matInput
-            [(ngModel)]="userData.Birthday"
-            type = "date"
-            placeholder="Birthday"  
-            name="Birthday"
-          >
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button
-          mat-raised-button
-          (click)="registerUser()"
-          color="primary"
-        >
-          Sign Up
-        </button>
-    </mat-card-actions>
-  </mat-card>
+  </mat-card-header>
+  <mat-card-content>
+    <form #registrationForm="ngForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          [(ngModel)]="userData.Username"
+          placeholder="Username (min. 5 characters)"
+          type="text"
+          name="Username"
+          required
+          minlength="5"
+          #username="ngModel"
+          matTooltip="Enter a username with at least 5 characters."
+          matTooltipPosition="above"
+        />
+        <mat-error *ngIf="username.invalid && username.touched">
+          Username is required and must be at least 5 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          [(ngModel)]="userData.Password"
+          type="password"
+          placeholder="Password"
+          name="Password"
+          required
+          minlength="6"
+          #password="ngModel"
+          matTooltip="Enter a password."
+          matTooltipPosition="above"
+        />
+        <mat-error *ngIf="password.invalid && password.touched">
+          Password is required and must be at least 6 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          [(ngModel)]="userData.Email"
+          type="email"
+          placeholder="Email"
+          name="Email"
+          required
+          email
+          #email="ngModel"
+          matTooltip="Enter a valid email address."
+          matTooltipPosition="above"
+        />
+        <mat-error *ngIf="email.invalid && email.touched">
+          A valid email is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Birthday</mat-label>
+        <input
+          matInput
+          [(ngModel)]="userData.Birthday"
+          type="date"
+          placeholder="Birthday"
+          name="Birthday"
+          matTooltip="Enter your birthdate."
+          matTooltipPosition="above"
+        />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      (click)="registerUser(registrationForm)"
+      color="primary"
+      matTooltip="Click to complete your registration"
+      matTooltipPosition="below"
+    >
+      Sign Up
+    </button>
+    <button
+      mat-button
+      (click)="goBack()"
+      color="warn"
+      matTooltip="Click to cancel registration and go back"
+      matTooltipPosition="below"
+    >
+      Go Back
+    </button>
+  </mat-card-actions>
+</mat-card>

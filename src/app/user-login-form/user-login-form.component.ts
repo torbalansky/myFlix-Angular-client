@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login-form',
@@ -19,29 +20,41 @@ export class UserLoginFormComponent implements OnInit {
     public snackBar: MatSnackBar,
     public router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   /**
-     * Logs in the user by making an API call to authenticate the credentials.
-     * If successful, stores the user details and token in the local storage,
-     * closes the dialog, displays a success message, and navigates to the movies page.
-     * If unsuccessful, displays an error message.
-     */
+   * Logs in the user by making an API call to authenticate the credentials.
+   * If successful, stores the user details and token in the local storage,
+   * closes the dialog, displays a success message, and navigates to the movies page.
+   * If unsuccessful, displays an error message.
+   */
+  loginUser(form: NgForm): void {
+    if (form.invalid) {
+      this.snackBar.open('Please enter both username and password.', 'OK', {
+        duration: 3000
+      });
+      return;
+    }
 
-  loginUser(): void {
-    this.fetchApiData.userLogin(this.loginData).subscribe((result) => {
-      localStorage.setItem('user', JSON.stringify(result.user));
-      localStorage.setItem('token', result.token);
-      this.dialogRef.close(); 
-      this.snackBar.open('Logged in', 'OK', {
-        duration: 2000
-      });
-      this.router.navigate(['movies']);
-    }, (result) => {
-      this.snackBar.open(result, 'OK', {
-        duration: 2000
-      });
-    });
+    this.fetchApiData.userLogin(this.loginData).subscribe(
+      (result) => {
+        localStorage.setItem('user', JSON.stringify(result.user));
+        localStorage.setItem('token', result.token);
+        this.dialogRef.close();
+        this.snackBar.open('Logged in successfully', 'OK', {
+          duration: 2000
+        });
+        this.router.navigate(['movies']);
+      },
+      (error) => {
+        this.snackBar.open('Invalid username or password. Please try again.', 'OK', {
+          duration: 3000
+        });
+      }
+    );
+  }
+
+  goBack(): void {
+    this.dialogRef.close();
   }
 }

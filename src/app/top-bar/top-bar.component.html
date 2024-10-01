@@ -1,16 +1,19 @@
-<mat-toolbar>
-    <div class="extra-section">
-      <span class="app-name" mat-button (click)="toMovies()" target="_blank"><i class="fa-solid fa-video" style="color:rgb(109, 62, 248); margin-right: 10px; margin-left: 20px;"></i>MyFlix</span>
-    </div>
-    <span class="example-spacer"></span>
-    <div class="toolbar-icons">
-    <a mat-button (click)="toMovies()" target="_blank" matTooltip="All movies">Home</a>
-      <button mat-icon-button (click)="toProfile()" class="person-icon" aria-label="Person icon-button" matTooltip="My Profile">
-        <mat-icon>person</mat-icon>
-      </button>
-      <button mat-icon-button (click)="logOut()" class="logout-icon" aria-label="Logout icon-button" matTooltip="Log out">
-        <mat-icon>logout</mat-icon>
-      </button>
-    </div>
-  </mat-toolbar>
-  
+<mat-toolbar class="top-bar">
+  <div class="extra-section">
+    <span class="app-name" mat-button (click)="toMovies()" target="_blank">
+      <i class="fa-solid fa-video video-icon"></i>MyFlix
+    </span>
+  </div>
+  <span class="example-spacer"></span>
+  <div class="toolbar-icons">
+    <button mat-icon-button (click)="toMovies()" class="home-icon" aria-label="Home icon-button" matTooltip="All movies">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toProfile()" class="person-icon" aria-label="Person icon-button" matTooltip="My Profile">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button mat-icon-button (click)="logOut()" class="logout-icon" aria-label="Logout icon-button" matTooltip="Log out">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

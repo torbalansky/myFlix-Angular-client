@@ -1,44 +1,91 @@
 .main-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #cfd0c5;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #cfd0c5, #e6e8e1);
+  transition: background 1s ease-in-out;
+}
+
+.main-page:hover {
+  background: linear-gradient(135deg, #eaece0, #d0d4d1);
+}
+
 .container {
-    border: 2px solid rgb(255, 255, 255);  
-    border-radius: 4px;
-    padding: 20px;
-    background-color: #eaece0;
-  }
+  border: 1px solid #fff;
+  border-radius: 12px;
+  padding: 40px;
+  background-color: #f5f5f0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  transition: background 1s ease-in-out;
+  background: linear-gradient(135deg, #e6e8e1, #fafafa);
+}
+
+.container:hover {
+  background: linear-gradient(135deg, #d0d4d1, #ffffff);
+}
 
 h1 {
-    font-size: 36px;
-    margin-bottom: 40px;
-    margin-top: 5px;
-    text-align: center;
-    color: #050505;
+  font-size: 42px;
+  margin-bottom: 60px;
+  margin-top: 0;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+h1:hover {
+  color: #5c0c92;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #0c9270;
+  transform: translateY(-3px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 620px) {
+  .container {
+    padding: 20px;
+    width: 300px;
   }
 
- .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  h1 {
+    font-size: 32px;
   }
-  
+
   button {
-    padding: 10px 20px;
     font-size: 18px;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    padding: 0;
   }
-  
-  button:hover {
-    background-color: #0c9270;
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
   }
-  
+}

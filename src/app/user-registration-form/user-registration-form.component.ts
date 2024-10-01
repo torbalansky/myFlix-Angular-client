@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-registration-form',
@@ -18,28 +18,34 @@ export class UserRegistrationFormComponent implements OnInit {
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
     public snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   /**
-   * Sends the user registration form inputs to the backend for registration.
-   * If successful, closes the dialog, displays a success message, and performs additional logic (to be implemented).
-   * If unsuccessful, displays an error message.
+   * Validates form inputs and registers the user.
    */
+  registerUser(form: NgForm): void {
+    if (form.invalid) {
+      this.snackBar.open('Please fill out all required fields correctly.', 'OK', {
+        duration: 3000
+      });
+      return;
+    }
 
-  registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
-      console.log(result)
-      this.dialogRef.close(); 
+      console.log(result);
+      this.dialogRef.close();
       this.snackBar.open('User successfully registered', 'OK', {
         duration: 2000
       });
-    }, (result) => {
-      console.log(result)
-      this.snackBar.open('User registration successful', 'OK', {
+    }, (error) => {
+      console.log(error);
+      this.snackBar.open('User registration failed', 'OK', {
         duration: 2000
       });
     });
   }
 
+  goBack(): void {
+    this.dialogRef.close();
+  }
 }

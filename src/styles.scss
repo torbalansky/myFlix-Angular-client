@@ -35,6 +35,11 @@ $myFlix-Angular-client-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: rgb(231, 232, 225); }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: max-content;
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(180deg, rgba(217, 216, 216, 0.253) 0%, rgba(243, 244, 173, 0.373) 100%);
+}
 
+@import '~@fortawesome/fontawesome-free/css/all.css';
