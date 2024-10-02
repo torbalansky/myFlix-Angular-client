@@ -83,6 +83,11 @@ mat-form-field {
       width: 80px;
       height: 120px;
   }
+
+  .delete-fav-btn {
+    width: 80px !important;
+    font-size: 16px !important;
+  }
 }
 
 @media (max-width: 480px) {

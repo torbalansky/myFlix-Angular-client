@@ -1,5 +1,17 @@
-<h3 mat-dialog-title>{{data.title}}</h3>
-<mat-dialog-content>{{data.content}}</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button [mat-dialog-close]>Close</button>
-</mat-dialog-actions>
+<div class="movie-info-dialog">
+  <div class="movie-info-container">
+    <div class="movie-poster-container">
+      <img [src]="data.imagePath" alt="{{ data.title }}" class="movie-poster" />
+    </div>
+    <div class="movie-details">
+      <h3 mat-dialog-title>{{ data.title }}</h3>
+      <p><strong>Genre:</strong> {{ data.genre }}</p>
+      <p><strong>Director:</strong> {{ data.director }}</p>
+      <p><strong>Actors:</strong> {{ data.actors.join(', ') }}</p>
+      <p><strong>Description:</strong> {{ data.description }}</p>
+      <mat-dialog-actions>
+        <button mat-button [mat-dialog-close]>Close</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
+</div>

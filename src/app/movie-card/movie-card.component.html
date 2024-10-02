@@ -1,18 +1,61 @@
 <app-top-bar></app-top-bar>
+<div class="search-section">
+  <mat-form-field appearance="fill" class="search-field">
+    <mat-label><strong>Search Movies by Title</strong></mat-label>
+    <input 
+      matInput 
+      [(ngModel)]="searchTerm" 
+      (input)="filterMovies()" 
+    />
+    <button 
+      class="clear-button" 
+      mat-icon-button 
+      *ngIf="searchTerm" 
+      aria-label="Clear" 
+      (click)="clearSearch()">
+      Clear
+    </button>
+  </mat-form-field>  
+</div>
 <div class="card-container">
-  <mat-card *ngFor="let movie of movies;" class="movie-card">
-    <img [src]="movie.ImagePath" [alt]="movie.Title" class="movie-image" mat-icon-button (click)="openGenre(movie.Title, movie.Description)"/>
+  <mat-card *ngFor="let movie of filteredMovies" class="movie-card">
+    <img
+      [src]="movie.ImagePath"
+      [alt]="movie.Title"
+      class="movie-image"
+      (click)="openSynopsis(movie)"
+    />
     <div class="movie-details">
       <h3 class="movie-title">{{ movie.Title }}</h3>
       <h4>Directed by: {{ movie.Director.Name }}</h4>
+
       <mat-card-actions class="button-container">
-        <button mat-icon-button (click)="openGenre(movie.Title, movie.Description)" color="secondary" matTooltip="Info">
+        <button
+          mat-icon-button
+          (click)="openSynopsis(movie)"
+          color="secondary"
+          matTooltip="Info"
+        >
           <mat-icon>info</mat-icon>
         </button>
-        <button *ngIf="!isFavorite(movie._id)" mat-icon-button (click)="addFavorite(movie._id)" color="accent" matTooltip="Add to favorites">
+
+        <button
+          *ngIf="!isFavorite(movie._id)"
+          mat-icon-button
+          (click)="addFavorite(movie._id)"
+          color="accent"
+          matTooltip="Add to favorites"
+        >
           <mat-icon>favorite_border</mat-icon>
         </button>
-        <button *ngIf="isFavorite(movie._id)" mat-icon-button (click)="removeFavorite(movie._id)" color="accent" matTooltip="Remove from favorites">
+
+        <button
+          *ngIf="isFavorite(movie._id)"
+          mat-icon-button
+          (click)="removeFavorite(movie._id)"
+          color="accent"
+          matTooltip="Remove from favorites"
+        >
           <mat-icon>favorite</mat-icon>
         </button>
       </mat-card-actions>
