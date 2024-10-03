@@ -48,6 +48,15 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  openGenre(name: string, genre: string): void {
+    this.dialog.open(MovieInfoComponent, {
+      data: {
+        title: name        
+      },
+      width: '280px'
+    });
+  }
+
   addFavorite(id: string): void {
     this.fetchApiData.addFavoriteMovie(id).subscribe((result) => {
       this.snackBar.open('Movie added to favorites!', 'OK', {
