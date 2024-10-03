@@ -4,6 +4,7 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { MovieInfoComponent } from '../movie-info/movie-info.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -125,6 +126,22 @@ export class UserProfileComponent implements OnInit {
       this.snackBar.open('Failed to remove movie from favorites', 'OK', {
         duration: 2000
       });
+    });
+  }
+
+  openSynopsis(movie: any): void {
+    this.dialog.open(MovieInfoComponent, {
+      data: {
+        title: movie.Title,
+        description: movie.Description,
+        genre: movie.Genre.Name,
+        genreDescription: movie.Genre.Description,
+        director: movie.Director.Name,
+        directorBio: movie.Director.Bio,
+        actors: movie.Actors,
+        imagePath: movie.ImagePath,
+      },
+      width: '900px',
     });
   }
   
