@@ -1,23 +1,4 @@
 <app-top-bar></app-top-bar>
-<div class="search-section">
-  <mat-form-field appearance="fill" class="search-field">
-    <mat-label><strong>Search Movies</strong></mat-label>
-    <input 
-      matInput 
-      [(ngModel)]="searchTerm" 
-      (input)="filterMovies()"
-      placeholder="Search Movie by Title"
-    />
-    <button 
-      class="clear-button" 
-      mat-icon-button 
-      *ngIf="searchTerm" 
-      aria-label="Clear" 
-      (click)="clearSearch()">
-      Clear
-    </button>
-  </mat-form-field>  
-</div>
 <div class="card-container">
   <mat-card *ngFor="let movie of filteredMovies" class="movie-card">
     <img

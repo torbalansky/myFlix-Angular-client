@@ -3,6 +3,7 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieInfoComponent } from '../movie-info/movie-info.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SearchService } from '../SearchService';
 
 @Component({
   selector: 'app-movie-card',
@@ -17,11 +18,16 @@ export class MovieCardComponent implements OnInit {
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
     this.getMovies();
+    this.searchService.currentSearchTerm.subscribe(term => {
+      this.searchTerm = term;
+      this.filterMovies();
+    });
   }
 
   getMovies(): void {
@@ -30,6 +36,16 @@ export class MovieCardComponent implements OnInit {
       this.filteredMovies = resp;
       console.log(this.movies);
     });
+  }
+
+  filterMovies(): void {
+    if (this.searchTerm) {
+      this.filteredMovies = this.movies.filter(movie =>
+        movie.Title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredMovies = this.movies;
+    }
   }
 
   openSynopsis(movie: any): void {
@@ -76,15 +92,4 @@ export class MovieCardComponent implements OnInit {
   isFavorite(id: string): boolean {
     return this.fetchApiData.isFavoriteMovie(id);
   }
-
-  filterMovies(): void {
-    this.filteredMovies = this.movies.filter(movie =>
-      movie.Title.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-  }
-
-  clearSearch(): void {
-    this.searchTerm = '';
-    this.filteredMovies = this.movies;
-  } 
 }

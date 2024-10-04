@@ -61,10 +61,92 @@
   font-size: 24px;
 }
 
-@media (max-width: 768px) {
+.search-movies {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: auto;
+  background-color: #ffffff89;
+  padding: 5px;
+  border-radius: 50px;
+  font-size: 14px;
+}
+
+.search-movies i {
+  margin-right: 5px;
+}
+
+ input {
+  background-color: #ffffff89;
+  height: 25px;
+  border-radius: 20px;
+  padding: 5px;
+  width: 250px;
+}
+
+.clear-button {
+  top: 0;
+  margin-left: 200px;
+  color: rgb(48, 48, 48);
+  position: absolute;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.clear-button:hover {
+  color: rgb(252, 137, 137);
+  transform: scale(1.3);
+}
+
+@media (max-width: 767px) {
   .extra-section {
-    font-size: 24px;
+    margin: 0;
   }
+
+  .search-movies {
+    width: 150px;
+    background-color: transparent;
+    margin-left: 5px;
+  }
+
+  .video-icon {
+    margin-right: 5px;
+    margin-left: 1px;
+}
+
+  .app-name {
+    font-weight: 300;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .home-icon {
+    display: none;
+  }
+
+ .logout-icon {
+    position: absolute;
+    right: 0;
+  }
+
+  .person-icon {
+    margin-right: 10px;
+  }
+
+  .search-movies i {
+    display: none;
+  }
+
+  .clear-button {
+    margin-left: 100px;
+  }
+
+  input {
+    background-color: #ffffff;
+  }
+
+
 }
 
 @media (max-width: 480px) {

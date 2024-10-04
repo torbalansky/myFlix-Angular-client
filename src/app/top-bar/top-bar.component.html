@@ -4,7 +4,23 @@
       <i class="fa-solid fa-video video-icon"></i>MyFlix
     </span>
   </div>
-  <span class="example-spacer"></span>
+  <div class="search-movies">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input 
+      matInput 
+      [(ngModel)]="searchTerm" 
+      (input)="filterMovies()"
+      placeholder="Search Movie"
+    />
+    <button 
+    class="clear-button" 
+    mat-icon-button 
+    *ngIf="searchTerm" 
+    aria-label="Clear" 
+    (click)="clearSearch()">
+    Clear
+  </button>
+</div>
   <div class="toolbar-icons">
     <button mat-icon-button (click)="toMovies()" class="home-icon" aria-label="Home icon-button" matTooltip="All movies">
       <mat-icon>home</mat-icon>

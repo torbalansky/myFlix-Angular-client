@@ -2,44 +2,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin: 10px auto;
+  margin: 50px auto;
   max-width: 1000px;
   padding-bottom: 50px;
-}
-
-.search-section {
-  margin-top: 10px;
-  text-align: center;
-  mat-label {
-    color: #3f51b5;
-  }
-}
-
-.search-field {
-  width: 30%;
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  border-top: 3px solid rgb(106, 11, 161);
-  border-radius: 5px;
-}
-
-.clear-button {
-  background-color: rgb(106, 11, 161);
-  color: white;
-  border: none;
-  border-radius: 1px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  height: 30px;
-  margin-top: 5px;
-  padding: 0;
-}
-
-.clear-button:hover {
-  background-color: #5c6bc0;
 }
 
 .movie-card {
@@ -49,7 +14,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(255, 57, 57, 0.079);
-  height: 400px;
+  height: 300px;
   position: relative;
 }
 
@@ -112,21 +77,12 @@ h4 {
     grid-template-columns: repeat(2, 1fr);
     width: 600px;
   }
-
-  .search-field {
-    width: 100%;
-    max-width: 300px;
-  }
 }
 
 @media (max-width: 600px) {
   .card-container {
     grid-template-columns: 1fr;
     width: 350px;
-  }
-  .search-field {
-    width: 100%;
-    max-width: 250px;
   }
 }
 
