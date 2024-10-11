@@ -24,12 +24,12 @@
 }
 
 .app-name:hover {
-  color: #ffd700;
+  color: #efdcff;
   transform: scale(1.05);
 }
 
 .video-icon {
-  color: #ffd700;
+  color: #efdcff;
   margin-right: 10px;
   margin-left: 20px;
   transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -53,7 +53,7 @@
 }
 
 .mat-icon-button:hover {
-  color: #ffd700;
+  color: #c5fe9f;
   transform: scale(1.1);
 }
 
@@ -67,9 +67,9 @@
   align-items: center;
   text-align: center;
   width: auto;
-  background-color: #ffffff89;
+  background-color: #ffffff56;
   padding: 5px;
-  border-radius: 50px;
+  border-radius: 2px;
   font-size: 14px;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .clear-button:hover {
-  color: rgb(252, 137, 137);
+  color: rgb(255, 0, 0);
   transform: scale(1.3);
 }
 

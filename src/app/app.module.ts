@@ -23,6 +23,7 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { MovieInfoComponent } from './movie-info/movie-info.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     MovieInfoComponent,
     TopBarComponent,
     UserProfileComponent,
-    TopBarComponent
+    TopBarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
