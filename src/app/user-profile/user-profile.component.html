@@ -2,12 +2,8 @@
 
   <div class="container">
     <div class="profile-update-container">
-      <div class="profile-container">
-        <h1><strong>Your data:</strong></h1>
-        <p><strong>Username</strong>: {{ user.Username }}</p>
-        <p><strong>E-mail</strong>: {{ user.Email }}</p>
         <div class="favorite-movies-container">
-          <h2>Your Favorite Movies:</h2>
+          <h1>Your Favorite Movies:</h1>
           <div class="movie-list">
             <mat-list-item *ngFor="let movie of favoriteMovies">
               <div class="movie-thumbnail">
@@ -16,11 +12,10 @@
               <button color="warn" (click)="removeFavoriteMovie(movie._id)" class="delete-fav-btn"  matTooltip="Remove from favorites"> Remove
               </button>
             </mat-list-item>
-          </div>
         </div>
       </div>
       <div class="update-profile-container">
-        <h2>Update your info:</h2>
+        <h2>Update your account:</h2>
         <form>
           <mat-form-field>
             <h5>Username</h5>
@@ -32,11 +27,16 @@
           <mat-form-field>
             <h5>Password</h5>
             <input 
-              matInput [(ngModel)]="userDetails.Password" 
-              minlength="8" type="password" 
+              matInput [(ngModel)]="userDetails.Password"
+              minlength="6" 
+              [type]="hidePassword ? 'password' : 'text'"
               placeholder="Password"
-              name="Password" required>
-          </mat-form-field>
+              name="Password"
+              required>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" matTooltip="Show/Hide Password">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field> 
           <mat-form-field>
             <h5>E-mail</h5>
             <input 

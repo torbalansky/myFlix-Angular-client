@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   user: any = {};
   movies: any[] = [];
   favoriteMovies: any[] = [];
+  hidePassword: boolean = true;
 
   @Input() userDetails = { Username: '', Password: '', Email: '', Birthday: '' };
 
@@ -27,17 +28,10 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getUser();
-  }
-
-  /**
-     * Retrieves the user data from the API.
-     * Populates the user details and favorite movies.
-     */
-
-  getUser(): void {
-    this.fetchApiData.getOneUser().subscribe((response: any) => {
-      this.user = response;
+    // Load user data from local storage first
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
       this.userDetails.Username = this.user.Username;
       this.userDetails.Email = this.user.Email;
       this.userDetails.Birthday = formatDate(
@@ -46,21 +40,55 @@ export class UserProfileComponent implements OnInit {
         'en-US',
         'UTC+0'
       );
-  
-      this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-        this.favoriteMovies = resp.filter(
-          (m: { _id: any }) => this.user.FavoriteMovies.indexOf(m._id) >= 0
-        );
-      });
+      // Fetch favorite movies
+      this.fetchFavoriteMovies();
+    } else {
+      // Fetch from the API if not found in local storage
+      this.getUser();
+    }
+  }
+
+  /**
+   * Retrieves the user data from the API.
+   * Populates the user details and favorite movies.
+   */
+  getUser(): void {
+    this.fetchApiData.getOneUser().subscribe((response: any) => {
+      this.user = response;
+      this.userDetails.Username = this.user.Username;
+    //this.userDetails.Password = this.user.Password;
+      this.userDetails.Email = this.user.Email;
+      this.userDetails.Birthday = formatDate(
+        this.user.Birthday,
+        'yyyy-MM-dd',
+        'en-US',
+        'UTC+0'
+      );
+
+      // Save the fetched user data to local storage
+      localStorage.setItem('user', JSON.stringify(this.user));
+
+      // Fetch favorite movies after fetching user
+      this.fetchFavoriteMovies();
     });
-  }  
+  }
+
+  /**
+   * Fetches the user's favorite movies from the API.
+   */
+  fetchFavoriteMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      // Filter favorite movies based on user data
+      this.favoriteMovies = resp.filter((m: { _id: any }) => this.user.FavoriteMovies.indexOf(m._id) >= 0);
+      console.log('Favorite Movies:', this.favoriteMovies);
+    });
+  }
 
   /**
    * Updates the user details.
    * Makes a request to the API to update the user data.
    * Shows a snackbar message upon success or failure.
    */
-
   editUser(): void {
     const updatedUser = {
       Username: this.userDetails.Username,
@@ -75,15 +103,23 @@ export class UserProfileComponent implements OnInit {
       this.snackBar.open('User successfully updated', 'OK', {
         duration: 2000
       });
+  
+      this.userDetails.Username = result.Username;
+      this.userDetails.Email = result.Email;
+   // this.userDetails.Password = result.Password;
+      this.userDetails.Birthday = formatDate(result.Birthday, 'yyyy-MM-dd', 'en-US', 'UTC+0');
+  
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }, (result) => {
       this.snackBar.open(result, 'OK', {
         duration: 2000
       });
     });
-  } 
+  }  
 
-
-   /**
+  /**
    * Deletes the user account.
    * Makes a request to the API to delete the user.
    * Clears local storage upon successful deletion.
@@ -104,7 +140,6 @@ export class UserProfileComponent implements OnInit {
       });
     });
   }
-
 
   /**
    * Removes a movie from the user's favorite list.
@@ -129,6 +164,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens a dialog with movie synopsis.
+   * @param {any} movie - The movie object containing details.
+   */
   openSynopsis(movie: any): void {
     this.dialog.open(MovieInfoComponent, {
       data: {
@@ -144,5 +183,11 @@ export class UserProfileComponent implements OnInit {
       width: '900px',
     });
   }
-  
-}  
+
+  /**
+   * Toggles the visibility of the password input.
+   */
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+}

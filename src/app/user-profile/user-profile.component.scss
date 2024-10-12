@@ -22,7 +22,7 @@ html, body {
   gap: 20px;
 }
 
-.profile-container, .update-profile-container {
+.update-profile-container {
   padding: 20px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -32,6 +32,7 @@ html, body {
 
 h1, h2 {
   color: rgb(109, 62, 248);
+  font-weight: bold;
 }
 
 mat-form-field {
@@ -46,7 +47,7 @@ mat-form-field {
 }
 
 .favorite-movies-container {
-  margin-top: 40px;
+  margin-top: 10px;
   flex: 1;
 }
 
