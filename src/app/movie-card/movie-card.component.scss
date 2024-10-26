@@ -4,7 +4,7 @@
   gap: 15px;
   margin: 50px auto;
   max-width: 1000px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 .movie-card {
@@ -91,4 +91,46 @@ h4 {
     grid-template-columns: repeat(2, 1fr);
     width: 700px;
   }
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pagination-button {
+  padding: 10px;
+  color: black;
+  background-color: rgb(232, 215, 244);
+  width: 80px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bolder;
+  margin: 10px;
+}
+
+.pagination-button:hover {
+  transform: scale(1.08);
+  background-color: rgb(167, 250, 222);
+  cursor: pointer;
+}
+
+.pagination-controls span {
+  font-weight: bold;
+  color: #242527;
+}
+
+.pagination-button-first, .pagination-button-last {
+  padding: 10px;
+  color: #2e2f38;
+  background-color: transparent;
+  border: none;
+  font-weight: bolder;
+}
+
+.pagination-button-first:hover, .pagination-button-last:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }

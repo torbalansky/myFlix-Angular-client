@@ -14,6 +14,9 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   filteredMovies: any[] = [];
   searchTerm: string = '';
+  currentPage: number = 1;
+  itemsPerPage: number = 6;
+  totalPages: number = 0;
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -34,6 +37,7 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       this.filteredMovies = resp;
+      this.calculateTotalPages();
       console.log(this.movies);
     });
   }
@@ -46,6 +50,38 @@ export class MovieCardComponent implements OnInit {
     } else {
       this.filteredMovies = this.movies;
     }
+
+    this.currentPage = 1;
+    this.calculateTotalPages();
+  }
+
+  calculateTotalPages(): void {
+    this.totalPages = Math.ceil(this.filteredMovies.length / this.itemsPerPage);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  firstPage(): void {
+    this.currentPage = 1;
+  }
+
+  lastPage(): void {
+    this.currentPage = this.totalPages;
+  }
+
+  get paginatedMovies(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredMovies.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
   openSynopsis(movie: any): void {
@@ -61,15 +97,6 @@ export class MovieCardComponent implements OnInit {
         imagePath: movie.ImagePath,
       },
       width: '900px',
-    });
-  }
-
-  openGenre(name: string, genre: string): void {
-    this.dialog.open(MovieInfoComponent, {
-      data: {
-        title: name        
-      },
-      width: '280px'
     });
   }
 

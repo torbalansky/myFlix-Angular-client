@@ -1,6 +1,6 @@
 <app-top-bar></app-top-bar>
 <div class="card-container">
-  <mat-card *ngFor="let movie of filteredMovies" class="movie-card">
+  <mat-card *ngFor="let movie of paginatedMovies" class="movie-card">
     <img
       [src]="movie.ImagePath"
       [alt]="movie.Title"
@@ -44,4 +44,13 @@
     </div>
   </mat-card>
 </div>
+
+<div class="pagination-controls">
+  <button class="pagination-button-first" (click)="firstPage()" [disabled]="currentPage === 1"><i class="fa-solid fa-backward-fast"></i></button>
+  <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+  <button class="pagination-button-last" (click)="lastPage()" [disabled]="currentPage >= totalPages"><i class="fa-solid fa-forward-fast"></i></button>
+</div>
+
 <app-footer></app-footer>
