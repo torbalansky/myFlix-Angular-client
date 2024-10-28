@@ -4,8 +4,15 @@
       <i class="fa-solid fa-video video-icon"></i>MyFlix
     </span>
   </div>
+  
   <div class="search-movies">
     <i class="fa-solid fa-magnifying-glass"></i>
+    <mat-form-field appearance="outline" style="margin-left: 20px; margin-top: 5px; background-color: rgba(255, 255, 255, 0.397); padding: 0; height: 50px; width: 150px; border-radius: 100px;">
+      <mat-label style="color: rgb(255, 255, 255); padding-top: 0;">Genre</mat-label>
+      <mat-select [(ngModel)]="selectedGenre" (selectionChange)="filterMovies()" style="color: rgb(255, 255, 255);">
+        <mat-option *ngFor="let genre of genres" [value]="genre" style="color: black;">{{ genre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <input 
       matInput 
       [(ngModel)]="searchTerm" 
@@ -15,12 +22,14 @@
     <button 
     class="clear-button" 
     mat-icon-button 
-    *ngIf="searchTerm" 
+    *ngIf="searchTerm || selectedGenre" 
     aria-label="Clear" 
-    (click)="clearSearch()">
+    (click)="clearSearch()"
+    >
     Clear
   </button>
-</div>
+  </div>
+ 
   <div class="toolbar-icons">
     <button mat-icon-button (click)="toMovies()" class="home-icon" aria-label="Home icon-button" matTooltip="All movies">
       <mat-icon>home</mat-icon>

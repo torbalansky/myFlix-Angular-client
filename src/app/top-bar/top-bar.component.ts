@@ -9,6 +9,8 @@ import { SearchService } from '../SearchService';
 })
 export class TopBarComponent implements OnInit {
   searchTerm: string = '';
+  selectedGenre: string = '';
+  genres: string[] = ['Action', 'Drama', 'Crime', 'Horror', 'Science Fiction', 'Thriller', 'Fantasy', 'Comedy'];
 
   constructor(
     private router: Router,
@@ -19,11 +21,14 @@ export class TopBarComponent implements OnInit {
 
   filterMovies(): void {
     this.searchService.changeSearchTerm(this.searchTerm);
+    this.searchService.changeGenre(this.selectedGenre);
   }
 
   clearSearch(): void {
     this.searchTerm = '';
+    this.selectedGenre = '';
     this.searchService.changeSearchTerm('');
+    this.searchService.changeGenre('');
   }
 
   toMovies(): void {

@@ -1,20 +1,25 @@
 .main-page {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #cfd0c5, #e6e8e1);
-  transition: background 1s ease-in-out;
 }
 
-.main-page:hover {
-  background: linear-gradient(135deg, #eaece0, #d0d4d1);
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: -1;
 }
 
 .container {
-  border: 1px solid #fff;
-  border-radius: 12px;
   padding: 40px;
   background-color: #f5f5f0;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -22,26 +27,17 @@
   max-width: 500px;
   width: 100%;
   transition: background 1s ease-in-out;
-  background: linear-gradient(135deg, #e6e8e1, #fafafa);
-}
-
-.container:hover {
-  background: linear-gradient(135deg, #d0d4d1, #ffffff);
+  background: linear-gradient(135deg, #00000094, #0046099b);
 }
 
 h1 {
-  font-size: 42px;
+  font-size: 52px;
   margin-bottom: 60px;
   margin-top: 0;
-  color: #333;
+  color: #fffefe;
   font-family: 'Roboto', sans-serif;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   transition: color 0.3s, text-shadow 0.3s;
-}
-
-h1:hover {
-  color: #5c0c92;
-  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .button-container {
@@ -56,13 +52,18 @@ button {
   padding: 15px 30px;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: 0 !important;
   transition: background-color 0.3s, transform 0.2s;
+  background-color: rgb(21, 255, 0) !important;
+  color: black !important;
+  width: 150px;
 }
 
 button:hover {
-  background-color: #0c9270;
+  background-color: black !important;
+  color: rgb(21, 255, 0) !important;
   transform: translateY(-3px);
+  border: 1px solid rgb(21, 255, 0);
 }
 
 button:active {
@@ -76,12 +77,16 @@ button:active {
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 38px;
+    padding: 5px;
+    line-height: 50px;
   }
 
   button {
     font-size: 18px;
     padding: 0;
+    width: auto;
+    margin-top: 10px;
   }
 
   .button-container {

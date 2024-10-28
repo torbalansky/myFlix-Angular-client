@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +67,8 @@ const appRoutes: Routes = [
     FormsModule,
     MatListModule,
     MatTooltipModule,
+    MatSelectModule,
+    MatOptionModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

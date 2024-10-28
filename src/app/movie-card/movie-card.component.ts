@@ -14,6 +14,7 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   filteredMovies: any[] = [];
   searchTerm: string = '';
+  selectedGenre: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 6;
   totalPages: number = 0;
@@ -27,8 +28,14 @@ export class MovieCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMovies();
+
     this.searchService.currentSearchTerm.subscribe(term => {
       this.searchTerm = term;
+      this.filterMovies();
+    });
+
+    this.searchService.currentGenre.subscribe(genre => {
+      this.selectedGenre = genre;
       this.filterMovies();
     });
   }
@@ -43,12 +50,18 @@ export class MovieCardComponent implements OnInit {
   }
 
   filterMovies(): void {
+    this.filteredMovies = this.movies;
+
     if (this.searchTerm) {
-      this.filteredMovies = this.movies.filter(movie =>
+      this.filteredMovies = this.filteredMovies.filter(movie =>
         movie.Title.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
-    } else {
-      this.filteredMovies = this.movies;
+    }
+
+    if (this.selectedGenre) {
+      this.filteredMovies = this.filteredMovies.filter(movie =>
+        movie.Genre.Name.toLowerCase() === this.selectedGenre.toLowerCase()
+      );
     }
 
     this.currentPage = 1;

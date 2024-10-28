@@ -1,11 +1,20 @@
 <mat-card class="login-card">
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
+    
+    <button class="button-back"
+    mat-button 
+    (click)="goBack()" 
+    matTooltip="Go back without logging in"
+    matTooltipPosition="below"
+  >
+    X
+  </button>
   </mat-card-header>
   <mat-card-content>
     <form #loginForm="ngForm">
       <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
+        <mat-label>Username*</mat-label>
         <input 
           matInput 
           [(ngModel)]="loginData.Username" 
@@ -22,7 +31,7 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>Password*</mat-label>
         <input 
           matInput 
           [(ngModel)]="loginData.Password" 
@@ -38,28 +47,18 @@
           Password is required.
         </mat-error>
       </mat-form-field>
+      <mat-card-actions>
+        <button class="button-login"
+          mat-raised-button 
+          (click)="loginUser(loginForm)" 
+          color="primary"
+          matTooltip="Click to log in"
+          matTooltipPosition="below"
+          [disabled]="loginForm.invalid" 
+        >
+          Login
+        </button>
+      </mat-card-actions>
     </form>
   </mat-card-content>
-
-  <mat-card-actions>
-    <button 
-      mat-raised-button 
-      (click)="loginUser(loginForm)" 
-      color="primary"
-      matTooltip="Click to log in"
-      matTooltipPosition="below"
-      [disabled]="loginForm.invalid" 
-    >
-      Login
-    </button>
-    <button 
-      mat-button 
-      (click)="goBack()" 
-      color="warn" 
-      matTooltip="Go back without logging in"
-      matTooltipPosition="below"
-    >
-      Go Back
-    </button>
-  </mat-card-actions>
 </mat-card>
