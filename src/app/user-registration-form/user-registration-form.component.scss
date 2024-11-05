@@ -3,11 +3,11 @@
     height: 100%;
     margin: auto;
     padding: 20px;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.911);
   }
 
   mat-card-title {
-    color: rgb(21, 255, 0) !important;
+    color: rgb(15, 128, 4) !important;
   }
 
   mat-form-field input {
@@ -15,7 +15,7 @@
   }
 
   mat-label {
-    color: rgb(21, 255, 0) !important;
+    color: rgb(15, 128, 4) !important;
     font-weight: 400;
     font-size: 24px;
   }
@@ -45,7 +45,7 @@
 
   .button-back {
     width: 150px;
-    color: rgb(21, 255, 0);
+    color: rgb(252, 62, 62);
     border: 1px solid white;
     margin-left: 10px; 
   }

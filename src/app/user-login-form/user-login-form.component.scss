@@ -3,7 +3,7 @@
     height: 100%;
     margin: auto;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.911);
+    background-color: rgba(255, 255, 255, 0.911);
     border-radius: 2px;
   }
   
@@ -16,7 +16,7 @@
   }
 
   mat-label {
-    color: rgb(21, 255, 0) !important;
+    color: rgb(15, 128, 4) !important;
     font-weight: 400;
     font-size: 24px;
   }
@@ -25,7 +25,7 @@
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: 600;
-    color: rgb(21, 255, 0)
+    color: rgb(15, 128, 4);
   }
   
   mat-form-field {
@@ -47,7 +47,7 @@
   }
 
   .button-back {
-    color: rgb(253, 194, 194);
+    color: rgb(252, 62, 62);
     padding: 0;
     margin: 10px;
     position: absolute;
