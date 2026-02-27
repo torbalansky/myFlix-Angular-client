@@ -1,7 +1,11 @@
+// theme variables
+$primary-color: #3f51b5;
+$accent-color: #ff4081;
+
 .movie-info-dialog {
     position: relative;
     width: 100%;
-    background-color: rgb(20, 20, 20);
+    background-color: rgba(20, 20, 20, 0.95);
     overflow: hidden;
     color: white;
   
@@ -31,7 +35,7 @@
         justify-content: center;
         margin-top: 16px;
         font-size: 22px !important;
-        color: azure;
+        color: $accent-color;
     }
   
     .movie-details {
@@ -54,15 +58,15 @@
     button {
         width: 100%;
         height: 30px;
-        background-color: rgb(255, 220, 220);
+        background-color: $accent-color;
         margin-right: 10px;
         font-weight: bold;
+        color: #fff;
     }
 
     button:hover {
-        background-color: rgb(224, 224, 224);
-    }
-  
+        background-color: darken($accent-color, 10%);
+    }  
     @media (max-width: 767px) {
       .movie-info-container {
         flex-direction: column;

@@ -1,43 +1,66 @@
 <mat-toolbar class="top-bar">
-  <div class="extra-section">
-    <span class="app-name" mat-button (click)="toMovies()" target="_blank">
-      <i class="fa-solid fa-video video-icon"></i>MyFlix
-    </span>
+  <!-- Logo Section -->
+  <div class="logo-section">
+    <button mat-icon-button (click)="toMovies()" class="logo-button" matTooltip="Home">
+      <i class="fa-solid fa-film"></i>
+      <span class="logo-text">MyFlix</span>
+    </button>
   </div>
-  
-  <div class="search-movies">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <mat-form-field appearance="outline" style="margin-left: 20px; margin-top: 5px; background-color: rgba(255, 255, 255, 0.397); padding: 0; height: 50px; width: 150px; border-radius: 100px;">
-      <mat-label style="color: rgb(255, 255, 255); padding-top: 0;">Genre</mat-label>
-      <mat-select [(ngModel)]="selectedGenre" (selectionChange)="filterMovies()" style="color: rgb(255, 255, 255);">
-        <mat-option *ngFor="let genre of genres" [value]="genre" style="color: black;">{{ genre }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <input 
-      matInput 
-      [(ngModel)]="searchTerm" 
-      (input)="filterMovies()"
-      placeholder="Search Movie"
-    />
-    <button 
-    class="clear-button" 
-    mat-icon-button 
-    *ngIf="searchTerm || selectedGenre" 
-    aria-label="Clear" 
-    (click)="clearSearch()"
+
+  <!-- Search and Filter Section -->
+  <div class="search-section">
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        (input)="filterMovies()"
+        placeholder="Search movies..."
+        type="text"
+      />
+      <mat-form-field class="genre-filter">
+        <mat-label>Genre</mat-label>
+        <mat-select [(ngModel)]="selectedGenre" (selectionChange)="filterMovies()">
+          <mat-option value="">All Genres</mat-option>
+          <mat-option *ngFor="let genre of genres" [value]="genre">{{ genre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-icon-button
+        class="clear-btn"
+        *ngIf="searchTerm || selectedGenre"
+        (click)="clearSearch()"
+        matTooltip="Clear filters"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Action Icons Section -->
+  <div class="actions-section">
+    <button
+      mat-icon-button
+      (click)="toMovies()"
+      class="action-btn"
+      matTooltip="Home"
     >
-    Clear
-  </button>
-  </div>
- 
-  <div class="toolbar-icons">
-    <button mat-icon-button (click)="toMovies()" class="home-icon" aria-label="Home icon-button" matTooltip="All movies">
       <mat-icon>home</mat-icon>
     </button>
-    <button mat-icon-button (click)="toProfile()" class="person-icon" aria-label="Person icon-button" matTooltip="My Profile">
-      <mat-icon>person</mat-icon>
+    <button
+      mat-icon-button
+      (click)="toProfile()"
+      class="action-btn"
+      matTooltip="My Profile"
+    >
+      <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-icon-button (click)="logOut()" class="logout-icon" aria-label="Logout icon-button" matTooltip="Log out">
+    <button
+      mat-icon-button
+      (click)="logOut()"
+      class="action-btn logout-btn"
+      matTooltip="Log out"
+    >
       <mat-icon>logout</mat-icon>
     </button>
   </div>

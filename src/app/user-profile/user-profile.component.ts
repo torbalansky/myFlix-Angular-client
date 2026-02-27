@@ -27,6 +27,13 @@ export class UserProfileComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
+  /**
+   * Navigate back to movies (home) view.
+   */
+  goHome(): void {
+    this.router.navigate(['movies']);
+  }
+
   ngOnInit(): void {
     // Load user data from local storage first
     const storedUser = localStorage.getItem('user');

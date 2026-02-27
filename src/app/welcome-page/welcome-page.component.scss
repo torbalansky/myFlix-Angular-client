@@ -1,11 +1,18 @@
+// theme colors copied from global
+$primary-color: #3f51b5;
+$accent-color: #ff90b5;
+$bg-gradient: linear-gradient(135deg, #00000094, #0046099b);
+
 .main-page {
   position: relative;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: calc(100vh - 200px);
+  flex: 1;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, $primary-color 10%, $primary-color 50%, $accent-color 90%);
 }
 
 canvas {
@@ -21,13 +28,13 @@ canvas {
 
 .container {
   padding: 40px;
-  background-color: #f5f5f0;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
   transition: background 1s ease-in-out;
-  background: linear-gradient(135deg, #00000094, #0046099b);
+  background: $primary-color;
 }
 
 h1 {
@@ -52,18 +59,18 @@ button {
   padding: 15px 30px;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 0 !important;
+  border-radius: 4px !important;
   transition: background-color 0.3s, transform 0.2s;
-  background-color: rgb(21, 255, 0) !important;
-  color: black !important;
+  background-color: $accent-color !important;
+  color: #fff !important;
   width: 150px;
 }
 
 button:hover {
-  background-color: black !important;
-  color: rgb(21, 255, 0) !important;
+  background-color: darken($accent-color, 10%) !important;
+  color: #fff !important;
   transform: translateY(-3px);
-  border: 1px solid rgb(21, 255, 0);
+  border: 1px solid lighten($accent-color, 20%);
 }
 
 button:active {

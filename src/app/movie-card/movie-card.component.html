@@ -1,6 +1,5 @@
-<app-top-bar></app-top-bar>
 <div class="card-container">
-  <mat-card *ngFor="let movie of paginatedMovies" class="movie-card">
+  <mat-card *ngFor="let movie of paginatedMovies" class="movie-card" [attr.data-testid]="'movie-'+movie._id">
     <img
       [src]="movie.ImagePath"
       [alt]="movie.Title"
@@ -45,12 +44,15 @@
   </mat-card>
 </div>
 
-<div class="pagination-controls">
-  <button class="pagination-button-first" (click)="firstPage()" [disabled]="currentPage === 1"><i class="fa-solid fa-backward-fast"></i></button>
-  <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-  <span>Page {{ currentPage }} of {{ totalPages }}</span>
-  <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
-  <button class="pagination-button-last" (click)="lastPage()" [disabled]="currentPage >= totalPages"><i class="fa-solid fa-forward-fast"></i></button>
+<div class="pagination-controls" data-testid="pagination">
+  <button class="pagination-button-first" (click)="firstPage()" [disabled]="currentPage === 1" data-testid="first-page">
+    <mat-icon>first_page</mat-icon>
+  </button>
+  <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1" data-testid="prev-page">Previous</button>
+  <span data-testid="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage >= totalPages" data-testid="next-page">Next</button>
+  <button class="pagination-button-last" (click)="lastPage()" [disabled]="currentPage >= totalPages" data-testid="last-page">
+    <mat-icon>last_page</mat-icon>
+  </button>
 </div>
 
-<app-footer></app-footer>

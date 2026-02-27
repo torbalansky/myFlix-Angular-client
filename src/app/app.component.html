@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <app-top-bar *ngIf="!isWelcomePage()"></app-top-bar>
+
+  <main class="content-wrapper">
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer></app-footer>
+</div>

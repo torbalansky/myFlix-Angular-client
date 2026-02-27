@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * The root component of the Angular app.
@@ -11,4 +12,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myflix-Angular-client';
+
+  constructor(private router: Router) {}
+
+  isWelcomePage(): boolean {
+    return this.router.url === '/' || this.router.url.includes('welcome');
+  }
 }
