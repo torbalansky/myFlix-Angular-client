@@ -26,6 +26,7 @@ import { MovieInfoComponent } from './movie-info/movie-info.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FooterComponent } from './footer/footer.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     TopBarComponent,
     UserProfileComponent,
     TopBarComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

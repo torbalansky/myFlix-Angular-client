@@ -17,3 +17,28 @@
 router-outlet {
   display: contents;
 }
+
+/* Snackbar styling - top position and enlarged */
+::ng-deep .app-snackbar-top {
+  .mdc-snackbar {
+    top: 20px !important;
+    bottom: auto !important;
+  }
+
+  .mdc-snackbar__surface {
+    background-color: #323232 !important;
+    padding: 16px 24px !important;
+    border-radius: 4px;
+  }
+
+  .mdc-snackbar__label {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    color: #fff !important;
+    padding: 8px 0 !important;
+  }
+
+  .mdc-button {
+    font-size: 14px !important;
+  }
+}

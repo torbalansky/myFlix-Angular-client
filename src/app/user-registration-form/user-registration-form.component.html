@@ -79,15 +79,6 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button class="button-register"
-      mat-raised-button
-      (click)="registerUser(registrationForm)"
-      color="primary"
-      matTooltip="Click to complete your registration"
-      matTooltipPosition="below"
-    >
-      Sign Up
-    </button>
     <button class="button-back"
       mat-button
       (click)="goBack()"
@@ -96,6 +87,15 @@
       matTooltipPosition="below"
     >
       Go Back
+    </button>
+    <button class="button-register"
+      mat-raised-button
+      (click)="registerUser(registrationForm)"
+      color="primary"
+      matTooltip="Click to complete your registration"
+      matTooltipPosition="below"
+    >
+      Sign Up
     </button>
   </mat-card-actions>
 </mat-card>

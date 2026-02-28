@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MovieInfoComponent } from '../movie-info/movie-info.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -108,7 +109,8 @@ export class UserProfileComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(result));
   
       this.snackBar.open('User successfully updated', 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
   
       this.userDetails.Username = result.Username;
@@ -121,7 +123,8 @@ export class UserProfileComponent implements OnInit {
       }, 2000);
     }, (result) => {
       this.snackBar.open(result, 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     });
   }  
@@ -134,16 +137,39 @@ export class UserProfileComponent implements OnInit {
    * Shows a snackbar message upon success or failure.
    */
 
+  /**
+   * Open a confirmation dialog before deleting the account.
+   * If the user confirms, proceed with deleteUser().
+   */
+  openDeleteDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Account',
+        message: 'Are you absolutely sure you want to delete your account? This action cannot be undone.',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteUser();
+      }
+    });
+  }
+
   deleteUser(): void {
     this.fetchApiData.deleteUser().subscribe(() => {
       localStorage.clear(); // Clear local storage upon successful deletion
       this.router.navigate(['/welcome']); // Navigate to the welcome page
       this.snackBar.open('User successfully deleted', 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     }, (error) => {
       this.snackBar.open(error, 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     });
   }
@@ -161,12 +187,14 @@ export class UserProfileComponent implements OnInit {
       // Update the favoriteMovies array by removing the deleted movie
       this.favoriteMovies = this.favoriteMovies.filter(movie => movie._id !== movieId);
       this.snackBar.open('Movie removed from favorites', 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     }, (error) => {
       console.error(error);
       this.snackBar.open('Failed to remove movie from favorites', 'OK', {
-        duration: 2000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     });
   }

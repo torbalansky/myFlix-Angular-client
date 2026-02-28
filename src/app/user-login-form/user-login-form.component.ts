@@ -31,7 +31,8 @@ export class UserLoginFormComponent implements OnInit {
   loginUser(form: NgForm): void {
     if (form.invalid) {
       this.snackBar.open('Please enter both username and password.', 'OK', {
-        duration: 3000
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
       return;
     }
@@ -42,13 +43,15 @@ export class UserLoginFormComponent implements OnInit {
         localStorage.setItem('token', result.token);
         this.dialogRef.close();
         this.snackBar.open('Logged in successfully', 'OK', {
-          duration: 2000
+          duration: 15000,
+          panelClass: ['app-snackbar-top']
         });
         this.router.navigate(['movies']);
       },
       (error) => {
         this.snackBar.open('Invalid username or password. Please try again.', 'OK', {
-          duration: 3000
+          duration: 15000,
+          panelClass: ['app-snackbar-top']
         });
       }
     );

@@ -60,15 +60,16 @@ $accent-color: #ff4081;
     font-weight: bold;
     font-size: 16px;
   }
+  
   .button-login:hover {
     background-color: darken($accent-color, 10%) !important;
     transform: translateY(-3px);
   }
 
   .button-back:hover {
-    background-color: darken($primary-color, 20%);
     transform: translateY(-3px);
-  }  
+  }
+
   mat-tooltip {
     background-color: $accent-color;
     color: white;

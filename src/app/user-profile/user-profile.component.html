@@ -58,11 +58,12 @@
         <div class="button-container">
           <button 
             mat-raised-button (click)="editUser()" 
-            color="primary" style="margin-right: 20px; margin-bottom: 10px;" matTooltip="Update">Update account</button>
+            color="primary" style="margin-right: 20px; margin-bottom: 10px;" matTooltip="Update Account">Update Account</button>
           <button 
-            mat-raised-button (click)="deleteUser()" 
+            mat-raised-button (click)="openDeleteDialog()" 
             color="accent" style="margin-right: 20px; margin-bottom: 10px;"
-            matTooltip="Warning: Deleting your account is irreversible">Delete account</button>
+            matTooltip="Warning: Deleting your account is irreversible"
+            data-testid="delete-account">Delete Account</button>
         </div>
       </div>
     </div>

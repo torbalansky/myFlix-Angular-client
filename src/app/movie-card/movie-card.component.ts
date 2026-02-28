@@ -116,7 +116,8 @@ export class MovieCardComponent implements OnInit {
   addFavorite(id: string): void {
     this.fetchApiData.addFavoriteMovie(id).subscribe((result) => {
       this.snackBar.open('Movie added to favorites!', 'OK', {
-        duration: 2000,
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     });
   }
@@ -124,7 +125,8 @@ export class MovieCardComponent implements OnInit {
   removeFavorite(id: string): void {
     this.fetchApiData.deleteFavoriteMovie(id).subscribe((result) => {
       this.snackBar.open('Movie removed from favorites!', 'OK', {
-        duration: 2000,
+        duration: 15000,
+        panelClass: ['app-snackbar-top']
       });
     });
   }
