@@ -1,4 +1,21 @@
 <div class="card-container">
+  <div *ngIf="filteredMovies.length === 0" class="no-results-message" data-testid="no-results">
+    <mat-icon class="no-results-icon">search_off</mat-icon>
+    <h2>No records found</h2>
+    <p>
+      <span *ngIf="searchTerm">
+        No movies match "<strong>{{ searchTerm }}</strong>"
+      </span>
+      <span *ngIf="searchTerm && selectedGenre"> in the </span>
+      <span *ngIf="selectedGenre">
+        <strong>{{ selectedGenre }}</strong> genre
+      </span>
+      <span *ngIf="!searchTerm && !selectedGenre">
+        Try adjusting your search criteria
+      </span>
+    </p>
+  </div>
+
   <mat-card *ngFor="let movie of paginatedMovies" class="movie-card" [attr.data-testid]="'movie-'+movie._id">
     <img
       [src]="movie.ImagePath"
@@ -44,7 +61,7 @@
   </mat-card>
 </div>
 
-<div class="pagination-controls" data-testid="pagination">
+<div class="pagination-controls" data-testid="pagination" *ngIf="filteredMovies.length > 0">
   <button class="pagination-button-first" (click)="firstPage()" [disabled]="currentPage === 1" data-testid="first-page">
     <mat-icon>first_page</mat-icon>
   </button>

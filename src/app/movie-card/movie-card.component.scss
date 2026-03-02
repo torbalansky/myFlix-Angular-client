@@ -142,3 +142,43 @@ h4 {
   color: lighten($accent-color, 10%);
   cursor: pointer;
 }
+
+.no-results-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+  grid-column: 1 / -1;
+  
+  .no-results-icon {
+    font-size: 80px;
+    width: 80px;
+    height: 80px;
+    color: $accent-color;
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    font-size: 28px;
+    margin: 20px 0;
+    color: $warn-color;
+    font-weight: 500;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #cccccc;
+    max-width: 500px;
+    line-height: 1.6;
+    
+    strong {
+      color: $accent-color;
+      font-weight: 600;
+    }
+  }
+}
+

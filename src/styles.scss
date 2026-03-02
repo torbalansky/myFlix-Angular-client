@@ -65,3 +65,21 @@ a:hover { text-decoration: underline; }
   display: flex;
   flex-direction: column;
 }
+
+/* Snackbar styles */
+.app-snackbar-error {
+  background-color: #f44336 !important;
+  
+  .mdc-snackbar__surface {
+    background-color: #f44336 !important;
+  }
+  
+  .mat-mdc-snack-bar-label {
+    color: #ffffff !important;
+    font-weight: 500;
+  }
+}
+
+.app-snackbar-top {
+  bottom: 80px !important;
+}

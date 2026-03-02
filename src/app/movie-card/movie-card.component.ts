@@ -66,6 +66,13 @@ export class MovieCardComponent implements OnInit {
 
     this.currentPage = 1;
     this.calculateTotalPages();
+
+    if (this.filteredMovies.length === 0 && (this.searchTerm || this.selectedGenre)) {
+      this.snackBar.open('No records found matching your search criteria', 'OK', {
+        duration: 5000,
+        panelClass: ['app-snackbar-error']
+      });
+    }
   }
 
   calculateTotalPages(): void {
