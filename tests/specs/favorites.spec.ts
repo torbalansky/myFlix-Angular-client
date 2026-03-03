@@ -1,7 +1,7 @@
 import { test, expect } from '../fixtures/auth.fixture';
 
 test.describe('Favorites Management', () => {
-  test('add a movie to favorites', async ({ authenticatedPage: page }) => {
+  test('add then remove a movie from favorites', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
     await page.waitForLoadState('networkidle');
@@ -10,40 +10,21 @@ test.describe('Favorites Management', () => {
     const firstMovieCard = page.locator('mat-card').first();
     await expect(firstMovieCard).toBeVisible();
 
-    // Find and click the add to favorites button (usually a heart icon or button)
+    // Add to favorites
     const addToFavButton = firstMovieCard.locator('button[class*="favorite"], button:has-text("Add"), mat-icon:has-text("favorite_border")').first();
-    
-    if (await addToFavButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await addToFavButton.click();
+    await expect(addToFavButton).toBeVisible({ timeout: 2000 });
+    await addToFavButton.click();
 
-      // Verify success message appears
-      const successSnackbar = page.locator('.mdc-snackbar__label');
-      await expect(successSnackbar).toContainText(/added to favorites/i, { 
-        timeout: 5000 
-      });
-    }
-  });
+    const addedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /added to favorites/i });
+    await expect(addedSnackbar).toBeVisible({ timeout: 5000 });
 
-  test('remove a movie from favorites', async ({ authenticatedPage: page }) => {
-    // Navigate to movies page
-    await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
-
-    // Find a movie card that's already favorited
-    const firstMovieCard = page.locator('mat-card').first();
-    
-    // Look for "remove from favorites" button or filled heart icon
+    // Remove from favorites (icon may change after adding)
     const removeFavButton = firstMovieCard.locator('button:has-text("Remove"), mat-icon:has-text("favorite")').first();
-    
-    if (await removeFavButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await removeFavButton.click();
+    await expect(removeFavButton).toBeVisible({ timeout: 5000 });
+    await removeFavButton.click();
 
-      // Verify success message appears
-      const successSnackbar = page.locator('.mdc-snackbar__label');
-      await expect(successSnackbar).toContainText(/removed from favorites/i, { 
-        timeout: 5000 
-      });
-    }
+    const removedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /removed from favorites/i });
+    await expect(removedSnackbar).toBeVisible({ timeout: 5000 });
   });
 
   test('display favorite movies in user profile', async ({ authenticatedPage: page }) => {

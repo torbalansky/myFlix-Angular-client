@@ -8,7 +8,7 @@ test.describe('Welcome Page - Login & Registration', () => {
     await page.waitForLoadState('networkidle');
   });
 
-  test('should display welcome page with login and registration buttons', async ({ page }) => {
+  test('display welcome page with login and registration buttons', async ({ page }) => {
     // Verify welcome page content
     await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
     
@@ -21,7 +21,7 @@ test.describe('Welcome Page - Login & Registration', () => {
     await expect(registerButton).toBeVisible();
   });
 
-  test('should open login dialog when login button is clicked', async ({ page }) => {
+  test('open login dialog when login button is clicked', async ({ page }) => {
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
     
@@ -33,7 +33,7 @@ test.describe('Welcome Page - Login & Registration', () => {
     await expect(page.locator('input[name="Password"]')).toBeVisible();
   });
 
-  test('should show error on failed login with invalid credentials', async ({ page }) => {
+  test('show error on failed login with invalid credentials', async ({ page }) => {
     // Open login dialog
     await page.getByRole('button', { name: /login/i }).click();
     await page.waitForSelector('mat-dialog-container');
@@ -45,14 +45,14 @@ test.describe('Welcome Page - Login & Registration', () => {
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
     
-    // Expect error message - snackbar should appear at top
+    // Expect error message - snackbar appear at top
     const errorSnackbar = page.locator('.mdc-snackbar__label');
     await expect(errorSnackbar).toContainText(/Invalid username or password/i, { 
       timeout: 5000 
     });
   });
 
-  test('should successfully login with valid credentials', async ({ page }) => {
+  test('successfully login with valid credentials', async ({ page }) => {
     const testUsername = process.env['E2E_TEST_USERNAME'] || 'testuser';
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
 
@@ -80,7 +80,7 @@ test.describe('Welcome Page - Login & Registration', () => {
     });
   });
 
-  test('should show validation error when login form is incomplete', async ({ page }) => {
+  test('show validation error when login form is incomplete', async ({ page }) => {
     await page.getByRole('button', { name: /login/i }).click();
     await page.waitForSelector('mat-dialog-container');
 
@@ -100,7 +100,7 @@ test.describe('Welcome Page - Login & Registration', () => {
       page.locator('mat-error', { hasText: 'Password is required.' })).toBeVisible();
   });
 
-  test('should close login dialog when cancel button is clicked', async ({ page }) => {
+  test('close login dialog when cancel button is clicked', async ({ page }) => {
     // Open login dialog
     await page.getByRole('button', { name: /login/i }).click();
     await expect(page.locator('mat-dialog-container')).toBeVisible();

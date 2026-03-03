@@ -159,4 +159,60 @@ test.describe('User Profile Management', () => {
       await page.waitForURL('**/movies', { timeout: 5000 });
     }
   });
+
+  test('create new user account and delete it', async ({ page }) => {
+
+    await page.goto('/welcome');
+    await page.waitForLoadState('networkidle');
+    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
+      
+    // Check for registration button
+    const registerButton = page.getByRole('button', { name: /Register/i });
+    await expect(registerButton).toBeVisible();  
+
+    // Open login dialog
+    await page.getByRole('button', { name: /Register/i }).click();
+    await page.waitForSelector('mat-dialog-container');
+    
+    // Fill in valid credentials
+    await page.fill('input[name="Username"]', 'testUsername12345');
+    await page.fill('input[name="Password"]', 'TestPassword12345!');
+    await page.fill('input[name="Email"]', 'testuser@example.com');
+    await page.fill('input[name="Birthday"]', '1990-01-01');
+    
+    // Click sign up button
+    await page.getByRole('button', { name: /Sign Up/i }).click();
+    
+    // Wait for navigation to movies page
+    await page.waitForURL('**/movies', { timeout: 10000 });
+    
+    // Verify we're on the movies page
+    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 5000 });
+    
+    // Verify success message appeared
+    const successSnackbar = page.locator('.mdc-snackbar__label');
+    await expect(successSnackbar).toContainText(/ User successfully registered and logged in!/i, { 
+      timeout: 5000 
+    });
+    
+    await page.goto('/profile');
+    await page.waitForLoadState('networkidle');
+
+    // Click delete button
+    const deleteButton = page.getByRole('button', { name: /delete account/i });
+    await deleteButton.click({ timeout: 5000 });
+
+    // Wait for dialog
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
+
+    // Click cancel button
+    const deleteaccountButton = page.getByRole('button', { name: /Delete/i });
+    await deleteaccountButton.click();
+
+    // Verify success message appeared
+    const deleteSnackbar = page.locator('.mdc-snackbar__label');
+    await expect(deleteSnackbar).toContainText(/ User successfully deleted/i, { 
+      timeout: 5000 
+    });
+ });
 });
