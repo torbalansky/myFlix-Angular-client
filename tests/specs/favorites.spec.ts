@@ -4,7 +4,7 @@ test.describe('Favorites Management', () => {
   test('add then remove a movie from favorites', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Find a movie card and its favorite button
     const firstMovieCard = page.locator('mat-card').first();
@@ -30,7 +30,7 @@ test.describe('Favorites Management', () => {
   test('display favorite movies in user profile', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Look for favorite movies section
     const favSection = page.locator('text=Your Favorite Movies, h1:has-text("Your Favorite Movies")').first();
@@ -50,10 +50,10 @@ test.describe('Favorites Management', () => {
   test('remove favorite from profile page', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Wait for profile to load
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Look for remove buttons in favorites list
     const removeButtons = page.locator('button:has-text("Remove")');
@@ -74,11 +74,11 @@ test.describe('Favorites Management', () => {
   test('verify empty favorites message when no favorites exist', async ({ page }) => {
     // Start fresh - login
     await page.goto('/');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Go to profile
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Check if empty state message is shown
     const favoriteList = page.locator('mat-list-item');

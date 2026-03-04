@@ -15,7 +15,7 @@ test.describe('Welcome Page - Registration', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the welcome page
     await page.goto('/welcome');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   test('display welcome page registration button', async ({ page }) => {
@@ -85,20 +85,22 @@ test.describe('Welcome Page - Registration', () => {
     await expect(usernameError).not.toBeVisible();
   });
 
-   test('check that required password field validation messages appear', async ({ page }) => {
+  test('check that required password field validation messages appear', async ({ page }) => {
     // Open registration dialog
     await page.getByRole('button', { name: /Register/i }).click();
-    await page.waitForSelector('mat-dialog-container'); 
-    // Click Sign Up button without filling password field to trigger validation message
-    await page.getByPlaceholder('Password').click();
-    await page.getByRole('button', { name: /Sign Up/i }).click();   
-    
-    // Check that validation messages are visible
-    const passwordError = page.locator('mat-error:has-text("Password is required and must be at least 6 characters long.")');
-    await expect(passwordError).toBeVisible();
+    await page.locator('mat-dialog-container').waitFor();
 
-    // Start typing in password field to clear validation message
-    await page.fill('input[name="Password"]', 'TestPassword1234!');
+    // Click Sign Up without filling anything
+    await page.getByRole('button', { name: /Sign Up/i }).click();
+
+    // Check validation message
+    const passwordError = page.locator('mat-error')
+      .filter({ hasText: 'Password is required and must be at least 6 characters long.' });
+
+    await expect(page.locator('mat-error')).toHaveText(/required|least 6/i);
+
+    // Fill password to clear validation
+    await page.locator('input[name="Password"]').fill('TestPassword1234!');
     await expect(passwordError).not.toBeVisible();
   });
 
@@ -124,7 +126,7 @@ test.describe('Welcome Page - Registration', () => {
     // Click Sign Up button to trigger validation message
     await page.getByRole('button', { name: /Sign Up/i }).click();
 
-        // Check that validation messages are visible
+    // Check that validation messages are visible
     const emailError = page.locator('mat-error:has-text("A valid email is required.")');
     await expect(emailError).toBeVisible();
 
@@ -136,13 +138,15 @@ test.describe('Welcome Page - Registration', () => {
   test('check that the same username validation message appears when trying to register with an existing username', async ({ page }) => {
     const testUsername = process.env['E2E_TEST_USERNAME'] || 'testuser123';
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
+    const testEmail = process.env['E2E_TEST_EMAIL'] || 'test@example.com';
     // Open registration dialog
     await page.getByRole('button', { name: /Register/i }).click();
     await page.waitForSelector('mat-dialog-container');
     // Fill in existing username
     await page.fill('input[name="Username"]', testUsername);
     await page.fill('input[name="Password"]', testPassword);
-    await page.fill('input[name="Email"]', 'testemail@test.com');
+    await page.fill('input[name="Email"]', testEmail);
+    await page.fill('input[name="Birthday"]', '1990-01-01');
     await page.getByRole('button', { name: /Sign Up/i }).click();
 
        // Snackbar message

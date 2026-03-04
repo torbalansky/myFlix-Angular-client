@@ -7,18 +7,40 @@ loadEnv({ path: path.resolve(__dirname, '.env') });
 loadEnv({ path: path.resolve(__dirname, '.env.local') });
 
 /**
+ * Determine environment
+ */
+const isCI = !!process.env['CI'];
+
+/**
+ * Base URL logic:
+ * 1. Use BASE_URL if explicitly provided
+ * 2. If running in CI, default to production
+ * 3. Otherwise use local Angular dev server
+ */
+const baseURL =
+  process.env['BASE_URL'] ||
+  (isCI
+    ? 'https://myflix-angular-client-torbalansky.netlify.app'
+    : 'http://127.0.0.1:4200'); // ← changed to 127.0.0.1 (important)
+
+/**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: './tests/specs',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
+
+  /* Disable full parallel in CI for stability */
+  fullyParallel: !isCI,
+
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env['CI'],
+  forbidOnly: isCI,
+
   /* Retry on CI only */
-  retries: process.env['CI'] ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env['CI'] ? 1 : undefined,
+  retries: isCI ? 2 : 0,
+
+  /* Force single worker in CI */
+  workers: isCI ? 1 : undefined,
+
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html'],
@@ -26,14 +48,17 @@ export default defineConfig({
     ['github'],
     ['junit', { outputFile: 'test-results/junit.xml' }],
   ],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
+  /* Shared settings for all the projects below. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env['BASE_URL'] || 'http://localhost:4200',
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    baseURL,
+
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+
+    actionTimeout: 10000,
+    navigationTimeout: 15000,
   },
 
   /* Configure projects for major browsers */
@@ -42,18 +67,14 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
-    /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
@@ -64,11 +85,16 @@ export default defineConfig({
     },
   ],
 
-  /* Run your local dev server before starting the tests */
-  webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:4200',
-    reuseExistingServer: !process.env['CI'],
-    timeout: 120 * 1000,
-  },
+  /* 
+   * Run your local dev server before starting the tests.
+   * Only enabled for local development.
+   */
+  webServer: isCI
+    ? undefined
+    : {
+        command: 'npx ng serve --host 127.0.0.1 --port 4200',
+        url: 'http://127.0.0.1:4200',
+        reuseExistingServer: false,
+        timeout: 180 * 1000,
+      },
 });

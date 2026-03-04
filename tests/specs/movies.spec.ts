@@ -4,7 +4,7 @@ test.describe('Movie Browsing', () => {
   test('display list of movies after login', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Verify movie cards are displayed
     const movieCards = page.locator('app-movie-card');
@@ -18,7 +18,7 @@ test.describe('Movie Browsing', () => {
   test('click on a movie card to view details', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Find and click first movie card/item
     const firstMovie = page.locator('mat-card').first();
@@ -58,7 +58,7 @@ test.describe('Movie Browsing', () => {
   test('search/filter movies', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Look for search input (if available in the app)
     const searchInput = page.locator('input[placeholder*="search" i], input[name*="search" i]').first();
@@ -68,7 +68,7 @@ test.describe('Movie Browsing', () => {
       await searchInput.fill('matrix');
       
       // Wait for results to filter
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
 
       // Verify filtered results are displayed
       const movies = page.locator('mat-card');
@@ -79,7 +79,7 @@ test.describe('Movie Browsing', () => {
   test('navigate back to welcome page using close button', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
     await page.goto('/movies');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Look for a close or back button (e.g., in top-bar)
     const topBar = page.locator('app-top-bar');

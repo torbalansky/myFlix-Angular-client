@@ -39,7 +39,7 @@ export const test = base.extend<AuthFixtures>({
     await page.goto('/');
 
     // Wait for app to load
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Perform login via API to set up authentication state
     const loginResponse = await page.request.post(
@@ -63,7 +63,7 @@ export const test = base.extend<AuthFixtures>({
 
       // Reload page to apply auth state
       await page.reload();
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
     }
 
     // Use the authenticated page in the test

@@ -4,7 +4,7 @@ test.describe('User Profile Management', () => {
   test('display user profile page with account details', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Verify profile section headings
     await expect(page.locator('h1')).toHaveText(/Your Favorite Movies/i);
@@ -14,7 +14,7 @@ test.describe('User Profile Management', () => {
   test('display user account form with editable fields', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Verify form fields are visible
     const usernameInput = page.locator('input[name="Username"]');
@@ -38,7 +38,7 @@ test.describe('User Profile Management', () => {
   test('update user account information', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
     await page.fill('input[name="Password"]', testPassword);
@@ -59,13 +59,13 @@ test.describe('User Profile Management', () => {
     });
 
     // Wait for page reload (as per component logic)
-    await page.waitForNavigation({ waitUntil: 'networkidle', timeout: 10000 }).catch(() => null);
+    await page.waitForNavigation({ waitUntil: 'domcontentloaded', timeout: 10000 }).catch(() => null);
   });
 
   test('show validation errors when updating with invalid data', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
     await page.fill('input[name="Password"]', testPassword);
@@ -87,7 +87,7 @@ test.describe('User Profile Management', () => {
   test('toggle password visibility', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     const passwordInput = page.locator('input[name="Password"]');
 
@@ -106,7 +106,7 @@ test.describe('User Profile Management', () => {
   test('open delete confirmation dialog', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });
@@ -124,7 +124,7 @@ test.describe('User Profile Management', () => {
   test('cancel delete operation from confirmation dialog', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });
@@ -147,7 +147,7 @@ test.describe('User Profile Management', () => {
   test('navigate back from profile page', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Look for close button (usually in top of profile)
     const closeButton = page.locator('button[aria-label*="close" i]').first();
@@ -163,7 +163,7 @@ test.describe('User Profile Management', () => {
   test('create new user account and delete it', async ({ page }) => {
 
     await page.goto('/welcome');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
       
     // Check for registration button
@@ -175,7 +175,7 @@ test.describe('User Profile Management', () => {
     await page.waitForSelector('mat-dialog-container');
     
     // Fill in valid credentials
-    await page.fill('input[name="Username"]', 'testUsername12345');
+    await page.fill('input[name="Username"]', 'testUsername1234565');
     await page.fill('input[name="Password"]', 'TestPassword12345!');
     await page.fill('input[name="Email"]', 'testuser@example.com');
     await page.fill('input[name="Birthday"]', '1990-01-01');
@@ -196,7 +196,7 @@ test.describe('User Profile Management', () => {
     });
     
     await page.goto('/profile');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });

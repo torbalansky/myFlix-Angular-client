@@ -5,7 +5,7 @@ test.describe('Welcome Page - Login & Registration', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the welcome page
     await page.goto('/welcome');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   test('display welcome page with login and registration buttons', async ({ page }) => {
@@ -82,22 +82,26 @@ test.describe('Welcome Page - Login & Registration', () => {
 
   test('show validation error when login form is incomplete', async ({ page }) => {
     await page.getByRole('button', { name: /login/i }).click();
-    await page.waitForSelector('mat-dialog-container');
+    await page.locator('mat-dialog-container').waitFor();
 
-    const usernameInput = page.locator('input[name="Username"]');
-    const passwordInput = page.locator('input[name="Password"]');
+    const username = page.locator('input[name="Username"]');
+    const password = page.locator('input[name="Password"]');
 
-    // Trigger username validation
-    await usernameInput.click(); 
-    await passwordInput.click(); 
+    // Focus then blur username
+    await username.focus();
+    await page.keyboard.press('Tab');
 
-    await expect(page.locator('mat-error', { hasText: 'Username is required.' })).toBeVisible();
-
-    // Trigger password validation
-    await usernameInput.click(); 
+    // Focus then blur password
+    await password.focus();
+    await page.keyboard.press('Tab');
 
     await expect(
-      page.locator('mat-error', { hasText: 'Password is required.' })).toBeVisible();
+      page.locator('mat-error').filter({ hasText: 'Username is required.' })
+    ).toBeVisible();
+
+    await expect(
+      page.locator('mat-error').filter({ hasText: 'Password is required.' })
+    ).toBeVisible();
   });
 
   test('close login dialog when cancel button is clicked', async ({ page }) => {
