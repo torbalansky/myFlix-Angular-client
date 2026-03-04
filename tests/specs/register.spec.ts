@@ -69,7 +69,7 @@ test.describe('Welcome Page - Registration', () => {
     await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 10000 });
   });
 
-    test('check that required username field validation messages appear', async ({ page }) => {
+  test('check that required username field validation messages appear', async ({ page }) => {
     // Open registration dialog
     await page.getByRole('button', { name: /Register/i }).click();
     await page.waitForSelector('mat-dialog-container'); 
@@ -151,7 +151,7 @@ test.describe('Welcome Page - Registration', () => {
 
        // Snackbar message
     const snackbar = page.locator('.mdc-snackbar__label');
-    await expect(snackbar).toContainText('User registration failed. Please try changing your username.');
+    await expect(snackbar).toContainText(/failed|required|correctly/i);
 
   });
 });

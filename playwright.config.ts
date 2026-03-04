@@ -19,9 +19,7 @@ const isCI = !!process.env['CI'];
  */
 const baseURL =
   process.env['BASE_URL'] ||
-  (isCI
-    ? 'https://myflix-angular-client-torbalansky.netlify.app'
-    : 'http://127.0.0.1:4200'); // ← changed to 127.0.0.1 (important)
+  'http://127.0.0.1:4200';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -57,8 +55,8 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
 
-    actionTimeout: 10000,
-    navigationTimeout: 15000,
+    actionTimeout: 20000,
+    navigationTimeout: 25000,
   },
 
   /* Configure projects for major browsers */

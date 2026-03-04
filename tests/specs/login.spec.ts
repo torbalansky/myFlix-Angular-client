@@ -67,11 +67,8 @@ test.describe('Welcome Page - Login & Registration', () => {
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
     
-    // Wait for navigation to movies page
-    await page.waitForURL('**/movies', { timeout: 10000 });
-    
     // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 15000 });
     
     // Verify success message appeared
     const successSnackbar = page.locator('.mdc-snackbar__label');

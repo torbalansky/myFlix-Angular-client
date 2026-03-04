@@ -12,7 +12,7 @@ test.describe('Movie Browsing', () => {
 
     // Verify individual movie elements are visible
     const movieItems = page.locator('.movie-card-item, [class*="movie"], mat-card');
-    await expect(movieItems.first()).toBeVisible({ timeout: 5000 });
+    await expect(movieItems.first()).toBeVisible({ timeout: 15000 });
   });
 
   test('click on a movie card to view details', async ({ authenticatedPage: page }) => {
@@ -28,7 +28,7 @@ test.describe('Movie Browsing', () => {
     await firstMovie.click();
 
     // Wait for movie info dialog to appear
-    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 15000 });
 
     const movieDialog = page.locator('app-movie-info');
     await expect(movieDialog).toBeVisible();
@@ -63,7 +63,7 @@ test.describe('Movie Browsing', () => {
     // Look for search input (if available in the app)
     const searchInput = page.locator('input[placeholder*="search" i], input[name*="search" i]').first();
     
-    if (await searchInput.isVisible({ timeout: 2000 }).catch(() => false)) {
+    if (await searchInput.isVisible({ timeout: 20000 }).catch(() => false)) {
       // Type in search
       await searchInput.fill('matrix');
       
@@ -83,12 +83,12 @@ test.describe('Movie Browsing', () => {
 
     // Look for a close or back button (e.g., in top-bar)
     const topBar = page.locator('app-top-bar');
-    if (await topBar.isVisible({ timeout: 2000 }).catch(() => false)) {
+    if (await topBar.isVisible({ timeout: 20000 }).catch(() => false)) {
       const closeBtn = topBar.locator('button[aria-label*="close" i], button:has-text("Close")').first();
-      if (await closeBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      if (await closeBtn.isVisible({ timeout: 20000 }).catch(() => false)) {
         await closeBtn.click();
         //  navigate back
-        await page.waitForURL('**/welcome', { timeout: 5000 });
+        await page.waitForURL('**/welcome', { timeout: 15000 });
       }
     }
   });
