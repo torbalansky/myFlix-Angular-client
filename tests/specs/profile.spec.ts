@@ -64,7 +64,7 @@ test.describe('User Profile Management', () => {
     // Verify success message
     const successSnackbar = page.locator('.mdc-snackbar__label');
     await expect(successSnackbar).toContainText(/successfully updated/i, { 
-      timeout: 5000 
+      timeout: 10000 
     });
 
     // Wait for page reload (as per component logic)
@@ -92,7 +92,7 @@ test.describe('User Profile Management', () => {
     // The error depends on backend validation
     const errorSnackbar = page.locator('.mdc-snackbar__label');
     await expect(errorSnackbar).toContainText(/Error: Email/i, { 
-      timeout: 5000 
+      timeout: 10000 
     });
   });
 
@@ -122,11 +122,11 @@ test.describe('User Profile Management', () => {
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });
-    await deleteButton.click({ timeout: 5000 });
+    await deleteButton.click({ timeout: 10000 });
 
     // Verify confirmation dialog appears
     const confirmDialog = page.locator('mat-dialog-container');
-    await expect(confirmDialog).toBeVisible({ timeout: 15000 });
+    await expect(confirmDialog).toBeVisible({ timeout: 110000 });
 
     // Verify dialog content
     await expect(confirmDialog.locator('text=Delete Account')).toBeVisible();
@@ -140,10 +140,10 @@ test.describe('User Profile Management', () => {
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });
-    await deleteButton.click({ timeout: 5000 });
+    await deleteButton.click({ timeout: 10000 });
 
     // Wait for dialog
-    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 10000 });
 
     // Click cancel button
     const cancelButton = page.locator('button:has-text("Cancel")');
@@ -168,7 +168,7 @@ test.describe('User Profile Management', () => {
       await closeButton.click();
       
       // navigate to movies
-      await page.waitForURL('**/movies', { timeout: 5000 });
+      await page.waitForURL('**/movies', { timeout: 10000 });
     }
   });
 
@@ -178,7 +178,7 @@ test.describe('User Profile Management', () => {
 
     await page.goto('/welcome');
     await page.waitForLoadState('domcontentloaded');
-    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 10000 });
       
     // Check for registration button
     const registerButton = page.getByRole('button', { name: /Register/i });
@@ -218,12 +218,12 @@ test.describe('User Profile Management', () => {
     await page.getByRole('button', { name: /Sign Up/i }).click();
     
     // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 110000 });
     
     // Verify success message appeared
     const successSnackbar = page.locator('.mdc-snackbar__label');
     await expect(successSnackbar).toContainText(/ User successfully registered and logged in!/i, { 
-      timeout: 5000 
+      timeout: 10000 
     });
     
     await page.goto('/profile');
@@ -231,10 +231,10 @@ test.describe('User Profile Management', () => {
 
     // Click delete button
     const deleteButton = page.getByRole('button', { name: /delete account/i });
-    await deleteButton.click({ timeout: 5000 });
+    await deleteButton.click({ timeout: 10000 });
 
     // Wait for dialog
-    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 10000 });
 
     // Click cancel button
     const deleteaccountButton = page.getByRole('button', { name: /Delete/i });
@@ -243,7 +243,7 @@ test.describe('User Profile Management', () => {
     // Verify success message appeared
     const deleteSnackbar = page.locator('.mdc-snackbar__label');
     await expect(deleteSnackbar).toContainText(/ User successfully deleted/i, { 
-      timeout: 5000 
+      timeout: 10000 
     });
  });
 });

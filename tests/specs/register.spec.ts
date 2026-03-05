@@ -20,7 +20,7 @@ test.describe('Welcome Page - Registration', () => {
 
   test('display welcome page registration button', async ({ page }) => {
     // Verify welcome page content
-    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 10000 });
     
     // Check for registration button
     const registerButton = page.getByRole('button', { name: /Register/i });

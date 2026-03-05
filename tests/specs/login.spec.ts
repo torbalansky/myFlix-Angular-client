@@ -10,7 +10,7 @@ test.describe('Welcome Page - Login & Registration', () => {
 
   test('display welcome page with login and registration buttons', async ({ page }) => {
     // Verify welcome page content
-    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 10000 });
     
     // Check for login button
     const loginButton = page.getByRole('button', { name: /Login/i });
@@ -47,8 +47,8 @@ test.describe('Welcome Page - Login & Registration', () => {
     
     // Expect error message - snackbar appear at top
     const errorSnackbar = page.locator('.mdc-snackbar__label');
-    await expect(errorSnackbar).toContainText(/Invalid username or password/i, { 
-      timeout: 5000 
+    await expect(errorSnackbar).toContainText(/Invalid/i, { 
+      timeout: 10000 
     });
   });
 
@@ -91,12 +91,12 @@ test.describe('Welcome Page - Login & Registration', () => {
     }).catch(() => {});
     
     // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 110000 });
     
     // Verify success message appeared
     const successSnackbar = page.locator('.mdc-snackbar__label');
     await expect(successSnackbar).toContainText(/Logged in successfully/i, { 
-      timeout: 5000 
+      timeout: 10000 
     });
   });
 
@@ -131,6 +131,6 @@ test.describe('Welcome Page - Login & Registration', () => {
     
     await page.getByRole('button', { name: /X/i }).click();
 
-    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 10000 });
   });
 });

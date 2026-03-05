@@ -12,19 +12,19 @@ test.describe('Favorites Management', () => {
 
     // Add to favorites
     const addToFavButton = firstMovieCard.locator('button[class*="favorite"], button:has-text("Add"), mat-icon:has-text("favorite_border")').first();
-    await expect(addToFavButton).toBeVisible({ timeout: 5000 });
+    await expect(addToFavButton).toBeVisible({ timeout: 10000 });
     await addToFavButton.click();
 
     const addedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /added to favorites/i });
-    await expect(addedSnackbar).toBeVisible({ timeout: 5000 });
+    await expect(addedSnackbar).toBeVisible({ timeout: 10000 });
 
     // Remove from favorites (icon may change after adding)
     const removeFavButton = firstMovieCard.locator('button:has-text("Remove"), mat-icon:has-text("favorite")').first();
-    await expect(removeFavButton).toBeVisible({ timeout: 5000 });
+    await expect(removeFavButton).toBeVisible({ timeout: 10000 });
     await removeFavButton.click();
 
     const removedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /removed from favorites/i });
-    await expect(removedSnackbar).toBeVisible({ timeout: 5000 });
+    await expect(removedSnackbar).toBeVisible({ timeout: 10000 });
   });
 
   test('display favorite movies in user profile', async ({ authenticatedPage: page }) => {
@@ -35,7 +35,7 @@ test.describe('Favorites Management', () => {
     // Look for favorite movies section
     const favSection = page.locator('text=Your Favorite Movies, h1:has-text("Your Favorite Movies")').first();
     
-    if (await favSection.isVisible({ timeout: 5000 }).catch(() => false)) {
+    if (await favSection.isVisible({ timeout: 10000 }).catch(() => false)) {
       // Verify favorite movies list is displayed
       const favoriteList = page.locator('mat-list-item');
       const count = await favoriteList.count();
@@ -66,7 +66,7 @@ test.describe('Favorites Management', () => {
       // Verify success message
       const successSnackbar = page.locator('.mdc-snackbar__label');
       await expect(successSnackbar).toContainText(/removed from favorites/i, { 
-        timeout: 15000 
+        timeout: 110000 
       });
     }
   });

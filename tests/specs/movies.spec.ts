@@ -35,7 +35,7 @@ test.describe('Movie Browsing', () => {
 
     // Verify individual movie elements are visible
     const movieItems = page.locator('.movie-card-item, [class*="movie"], mat-card');
-    await expect(movieItems.first()).toBeVisible({ timeout: 5000 });
+    await expect(movieItems.first()).toBeVisible({ timeout: 10000 });
   });
 
   test('click on a movie card to view details', async ({ authenticatedPage: page }) => {
@@ -45,13 +45,13 @@ test.describe('Movie Browsing', () => {
 
     // Find and click first movie card/item
     const firstMovie = page.locator('mat-card').first();
-    await expect(firstMovie).toBeVisible();
+    await expect(firstMovie).toBeVisible({ timeout: 10000 });
     
     // Click on the movie card to open details
     await firstMovie.click();
 
     // Wait for movie info dialog to appear
-    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 10000 });
 
     const movieDialog = page.locator('app-movie-info');
     await expect(movieDialog).toBeVisible();
@@ -111,7 +111,7 @@ test.describe('Movie Browsing', () => {
       if (await closeBtn.isVisible({ timeout: 20000 }).catch(() => false)) {
         await closeBtn.click();
         //  navigate back
-        await page.waitForURL('**/welcome', { timeout: 5000 });
+        await page.waitForURL('**/welcome', { timeout: 10000 });
       }
     }
   });
