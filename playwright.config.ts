@@ -3,8 +3,8 @@ import * as path from 'path';
 import { config as loadEnv } from 'dotenv';
 
 // Load environment variables from .env file
-loadEnv({ path: path.resolve(__dirname, '.env') });
-loadEnv({ path: path.resolve(__dirname, '.env.local') });
+loadEnv({ path: path.resolve(__dirname, '.env'), quiet: !!process.env['CI'] });
+loadEnv({ path: path.resolve(__dirname, '.env.local'), quiet: !!process.env['CI'] });
 
 /**
  * Determine environment
