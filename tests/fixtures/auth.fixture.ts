@@ -52,6 +52,28 @@ export const test = base.extend<AuthFixtures>({
       }
     );
 
+    // #region agent log
+    fetch('http://127.0.0.1:7639/ingest/081c9880-155f-43d8-a89f-2a7e2a99f57e', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Debug-Session-Id': 'c3abe9',
+      },
+      body: JSON.stringify({
+        sessionId: 'c3abe9',
+        runId: 'pre-fix',
+        hypothesisId: 'H1',
+        location: 'tests/fixtures/auth.fixture.ts:45-53',
+        message: 'Auth fixture login API response',
+        data: {
+          ok: loginResponse.ok(),
+          status: loginResponse.status(),
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+    // #endregion agent log
+
     if (loginResponse.ok()) {
       const loginData = await loginResponse.json();
       

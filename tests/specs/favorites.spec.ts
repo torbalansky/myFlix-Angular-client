@@ -84,10 +84,8 @@ test.describe('Favorites Management', () => {
     const favoriteList = page.locator('mat-list-item');
     const count = await favoriteList.count();
 
-    // If no favorites, a message indicate this
     if (count === 0) {
       const emptyMessage = page.locator('text=no favorites');
-      // This assertion is optional depending on whether your app shows an empty state
     }
   });
 });

@@ -13,7 +13,7 @@ test.describe('Welcome Page - Login & Registration', () => {
     await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
     
     // Check for login button
-    const loginButton = page.getByRole('button', { name: /Register/i });
+    const loginButton = page.getByRole('button', { name: /Login/i });
     await expect(loginButton).toBeVisible();
     
     // Check for registration button
@@ -66,6 +66,29 @@ test.describe('Welcome Page - Login & Registration', () => {
     
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
+
+    // region agent log
+    const afterLoginUrl = page.url();
+    const snackbarText = await page.locator('.mdc-snackbar__label').first().textContent().catch(() => null);
+    fetch('http://127.0.0.1:7639/ingest/081c9880-155f-43d8-a89f-2a7e2a99f57e', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Debug-Session-Id': 'c3abe9',
+      },
+      body: JSON.stringify({
+        sessionId: 'c3abe9',
+        runId: 'pre-fix',
+        hypothesisId: 'H2',
+        location: 'tests/specs/login.spec.ts:59-77',
+        message: 'Login flow result',
+        data: {
+          url: afterLoginUrl,
+          hasSnackbar: Boolean(snackbarText),
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
     
     // Verify we're on the movies page
     await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 15000 });

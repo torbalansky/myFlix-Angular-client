@@ -81,7 +81,10 @@ test.describe('User Profile Management', () => {
 
     // Verify API error is shown (Angular form validation may not block this)
     // The error depends on backend validation
-    await page.waitForTimeout(1000);
+    const errorSnackbar = page.locator('.mdc-snackbar__label');
+    await expect(errorSnackbar).toContainText(/Error: Email/i, { 
+      timeout: 5000 
+    });
   });
 
   test('toggle password visibility', async ({ authenticatedPage: page }) => {
@@ -179,6 +182,26 @@ test.describe('User Profile Management', () => {
     await page.fill('input[name="Password"]', 'TestPassword12345!');
     await page.fill('input[name="Email"]', 'testuser@example.com');
     await page.fill('input[name="Birthday"]', '1990-01-01');
+
+    // region agent log
+    fetch('http://127.0.0.1:7639/ingest/081c9880-155f-43d8-a89f-2a7e2a99f57e', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Debug-Session-Id': 'c3abe9',
+      },
+      body: JSON.stringify({
+        sessionId: 'c3abe9',
+        runId: 'pre-fix',
+        hypothesisId: 'H5',
+        location: 'tests/specs/profile.spec.ts:177-183',
+        message: 'Profile create/delete uses static credentials',
+        data: {
+          usesStaticTestUser: true,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
     
     // Click sign up button
     await page.getByRole('button', { name: /Sign Up/i }).click();
