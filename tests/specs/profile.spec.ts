@@ -1,6 +1,15 @@
 import { test, expect } from '../fixtures/auth.fixture';
+import { randomUUID } from 'crypto';
 
 test.describe('User Profile Management', () => {
+
+  const makeUniqueCreds = () => {
+    const suffix = randomUUID().replace(/-/g, '').slice(0, 12);
+    return {
+      username: `u${suffix}`
+    };
+  };
+
   test('display user profile page with account details', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
     await page.goto('/profile');
@@ -165,6 +174,8 @@ test.describe('User Profile Management', () => {
 
   test('create new user account and delete it', async ({ page }) => {
 
+    const { username } = makeUniqueCreds();
+
     await page.goto('/welcome');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 5000 });
@@ -178,7 +189,7 @@ test.describe('User Profile Management', () => {
     await page.waitForSelector('mat-dialog-container');
     
     // Fill in valid credentials
-    await page.fill('input[name="Username"]', 'testUsername1234565a5');
+    await page.fill('input[name="Username"]', username);
     await page.fill('input[name="Password"]', 'TestPassword12345!');
     await page.fill('input[name="Email"]', 'testuser@example.com');
     await page.fill('input[name="Birthday"]', '1990-01-01');
@@ -207,7 +218,7 @@ test.describe('User Profile Management', () => {
     await page.getByRole('button', { name: /Sign Up/i }).click();
     
     // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 5000 });
     
     // Verify success message appeared
     const successSnackbar = page.locator('.mdc-snackbar__label');
@@ -223,7 +234,7 @@ test.describe('User Profile Management', () => {
     await deleteButton.click({ timeout: 5000 });
 
     // Wait for dialog
-    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('mat-dialog-container')).toBeVisible({ timeout: 5000 });
 
     // Click cancel button
     const deleteaccountButton = page.getByRole('button', { name: /Delete/i });

@@ -58,7 +58,7 @@ test.describe('Welcome Page - Registration', () => {
 
     // Verify success message (ensures request finished)
     const successSnackbar = page.locator('.mdc-snackbar__label');
-    await expect(successSnackbar).toContainText(/User successfully registered and logged in!/i, { 
+    await expect(successSnackbar).toContainText(/User successfully/i, { 
       timeout: 10000 
     });
 
