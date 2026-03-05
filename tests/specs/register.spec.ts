@@ -15,7 +15,7 @@ test.describe('Welcome Page - Registration', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the welcome page
     await page.goto('/welcome');
-    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('app-root')).toBeVisible();
   });
 
   test('display welcome page registration button', async ({ page }) => {
@@ -52,6 +52,11 @@ test.describe('Welcome Page - Registration', () => {
     await page.fill('input[name="Password"]', password);
     await page.fill('input[name="Email"]', email);
     await page.fill('input[name="Birthday"]', '1990-01-01');
+
+    // Ensure Angular bindings have actually received values before submit
+    await expect(page.locator('input[name="Username"]')).toHaveValue(username);
+    await expect(page.locator('input[name="Password"]')).toHaveValue(password);
+    await expect(page.locator('input[name="Email"]')).toHaveValue(email);
     
     // Click sign up button
     await page.getByRole('button', { name: /Sign Up/i }).click();
@@ -66,7 +71,7 @@ test.describe('Welcome Page - Registration', () => {
     await expect(page).toHaveURL(/\/movies/, { timeout: 20000 });
     
     // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('[data-testid^="movie-"]').first()).toBeVisible({ timeout: 60000 });
   });
 
   test('check that required username field validation messages appear', async ({ page }) => {

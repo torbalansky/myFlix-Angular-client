@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
-import * as exp from 'constants';
 
 test.describe('Welcome Page - Login & Registration', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the welcome page
     await page.goto('/welcome');
-    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('app-root')).toBeVisible();
   });
 
   test('display welcome page with login and registration buttons', async ({ page }) => {
@@ -67,31 +66,9 @@ test.describe('Welcome Page - Login & Registration', () => {
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
 
-    // region agent log
-    const afterLoginUrl = page.url();
-    const snackbarText = await page.locator('.mdc-snackbar__label').first().textContent().catch(() => null);
-    fetch('http://127.0.0.1:7639/ingest/081c9880-155f-43d8-a89f-2a7e2a99f57e', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Debug-Session-Id': 'c3abe9',
-      },
-      body: JSON.stringify({
-        sessionId: 'c3abe9',
-        runId: 'pre-fix',
-        hypothesisId: 'H2',
-        location: 'tests/specs/login.spec.ts:59-77',
-        message: 'Login flow result',
-        data: {
-          url: afterLoginUrl,
-          hasSnackbar: Boolean(snackbarText),
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    
-    // Verify we're on the movies page
-    await expect(page.locator('app-movie-card')).toBeVisible({ timeout: 110000 });
+    // Verify we're on the movies page and movies have rendered
+    await expect(page).toHaveURL(/\/movies/, { timeout: 60000 });
+    await expect(page.locator('[data-testid^="movie-"]').first()).toBeVisible({ timeout: 60000 });
     
     // Verify success message appeared
     const successSnackbar = page.locator('.mdc-snackbar__label');
