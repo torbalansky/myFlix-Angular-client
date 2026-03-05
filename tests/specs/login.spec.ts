@@ -66,6 +66,11 @@ test.describe('Welcome Page - Login & Registration', () => {
     // Click login button
     await page.getByRole('button', { name: /login/i }).click();
 
+    // Wait for movies API to return and movies to be rendered
+    await page.waitForResponse(resp =>
+      resp.url().includes('/movies') && resp.status() === 200
+    );
+
     // Verify we're on the movies page and movies have rendered
     await expect(page).toHaveURL(/\/movies/, { timeout: 60000 });
     await expect(page.locator('[data-testid^="movie-"]').first()).toBeVisible({ timeout: 60000 });

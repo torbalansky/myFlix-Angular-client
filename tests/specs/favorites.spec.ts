@@ -6,6 +6,11 @@ test.describe('Favorites Management', () => {
     await page.goto('/movies');
     await expect(page.locator('app-root')).toBeVisible();
 
+    // Wait for movies API to return and movies to be rendered
+    await page.waitForResponse(resp =>
+      resp.url().includes('/movies') && resp.status() === 200
+    );
+
     // Find a movie card and its favorite button
     const firstMovieCard = page.locator('[data-testid^="movie-"]').first();
     await expect(firstMovieCard).toBeVisible({ timeout: 60000 });

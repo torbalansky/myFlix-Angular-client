@@ -15,6 +15,11 @@ test.describe('Movie Browsing', () => {
     await page.goto('/movies');
     await expect(page.locator('app-root')).toBeVisible();
 
+    // Wait for movies API to return and movies to be rendered
+    await page.waitForResponse(resp =>
+      resp.url().includes('/movies') && resp.status() === 200
+    );
+
     // Find and click first movie card/item
     const firstMovie = page.locator('[data-testid^="movie-"]').first();
     await expect(firstMovie).toBeVisible({ timeout: 60000 });
@@ -50,34 +55,32 @@ test.describe('Movie Browsing', () => {
 
 
   test('search/filter movies', async ({ authenticatedPage: page }) => {
-    // Navigate to movies page
     await page.goto('/movies');
-    await expect(page.locator('app-root')).toBeVisible();
-
-    // Look for search input (if available in the app)
-    const searchInput = page.locator('input[placeholder*="search" i], input[name*="search" i]').first();
-    
-    if (await searchInput.isVisible({ timeout: 20000 }).catch(() => false)) {
-      // Type in search
-      await searchInput.fill('matrix');
-      
-      // Verify filtered results are displayed (either results or "no results")
-      const noResults = page.getByTestId('no-results');
-      const titles = page.locator('.movie-title');
-
-      await expect
-        .poll(
-          async () => {
-            const hasNoResults = await noResults.isVisible().catch(() => false);
-            if (hasNoResults) return true;
-
-            const allTitles = (await titles.allTextContents()).map((t) => t.toLowerCase());
-            return allTitles.some((t) => t.includes('matrix'));
-          },
-          { timeout: 60000 }
-        )
-        .toBe(true);
-    }
+  
+    // Wait for movies API to return
+    await page.waitForResponse(resp =>
+      resp.url().includes('/movies') && resp.status() === 200
+    );
+  
+    // Ensure movies are actually rendered
+    const movieCards = page.locator('[data-testid^="movie-"]');
+    await expect(movieCards.first()).toBeVisible();
+  
+    // Now find search input (must exist — no conditional logic)
+    const searchInput = page.getByRole('textbox', { name: /search/i });
+  
+    await expect(searchInput).toBeVisible();
+    await searchInput.fill('matrix');
+  
+    // Wait for filtering to apply
+    await expect
+      .poll(async () => {
+        const titles = await page.locator('.movie-title').allTextContents();
+        return titles.every(title =>
+          title.toLowerCase().includes('matrix')
+        );
+      })
+      .toBe(true);
   });
 
   test('navigate back to welcome page using close button', async ({ authenticatedPage: page }) => {

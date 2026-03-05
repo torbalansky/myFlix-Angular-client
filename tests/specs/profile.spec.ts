@@ -48,13 +48,17 @@ test.describe('User Profile Management', () => {
     // Navigate to profile page
     await page.goto('/profile');
     await expect(page.locator('app-root')).toBeVisible();
-  
+
+
+    const username = process.env['E2E_TEST_USERNAME'] || 'testuser';
+    await page.fill('input[name="Username"]', username);
+
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
     await page.fill('input[name="Password"]', testPassword);
   
     // Update email
     const emailInput = page.locator('input[name="Email"]');
-    await emailInput.fill('newemail@example.com');
+    await emailInput.fill('newemail2@example.com');
   
     // Click update button
     const updateButton = page.getByRole('button', { name: /update account/i });
