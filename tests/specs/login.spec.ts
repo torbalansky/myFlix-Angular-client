@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Welcome Page - Login & Registration', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the welcome page
-    await page.goto('/welcome');
+    await page.goto('/welcome', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
   });
 

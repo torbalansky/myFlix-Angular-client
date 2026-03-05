@@ -1,4 +1,5 @@
 import { test as base, Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 /**
  * Test user credentials for E2E tests.
@@ -35,13 +36,10 @@ type AuthFixtures = {
  */
 export const test = base.extend<AuthFixtures>({
   authenticatedPage: async ({ page }, use) => {
-    // Navigate to the app
-    await page.goto('/');
+    // Go to app (no strict load waiting)
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
 
-    // Wait for app to load
-    await page.waitForLoadState('domcontentloaded');
-
-    // Perform login via API to set up authentication state
+    // Login via API
     const loginResponse = await page.request.post(
       'https://movie-api-eqfh.vercel.app/login',
       {
@@ -54,25 +52,23 @@ export const test = base.extend<AuthFixtures>({
 
     if (loginResponse.ok()) {
       const loginData = await loginResponse.json();
-      
-      // Set user data and token in localStorage
+
       await page.evaluate((data) => {
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('token', data.token);
       }, loginData);
 
-      // Reload page to apply auth state
-      await page.reload();
-      await page.waitForLoadState('domcontentloaded');
+      // Reload without waiting for full load
+      await page.reload({ waitUntil: 'domcontentloaded' });
+
+      // Wait for app to render
+      await page.locator('app-root').waitFor();
     }
 
-    // Use the authenticated page in the test
     await use(page);
 
     // Cleanup
-    await page.evaluate(() => {
-      localStorage.clear();
-    });
+    await page.evaluate(() => localStorage.clear());
   },
 });
 

@@ -12,7 +12,7 @@ test.describe('User Profile Management', () => {
 
   test('display user profile page with account details', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Verify profile section headings
@@ -22,7 +22,7 @@ test.describe('User Profile Management', () => {
 
   test('display user account form with editable fields', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Verify form fields are visible
@@ -46,7 +46,7 @@ test.describe('User Profile Management', () => {
 
   test('update user account information', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
 
@@ -78,7 +78,7 @@ test.describe('User Profile Management', () => {
 
   test('show validation errors when updating with invalid data', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     const testPassword = process.env['E2E_TEST_PASSWORD'] || 'TestPassword123!';
@@ -101,7 +101,7 @@ test.describe('User Profile Management', () => {
 
   test('toggle password visibility', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     const passwordInput = page.locator('input[name="Password"]');
@@ -120,7 +120,7 @@ test.describe('User Profile Management', () => {
 
   test('open delete confirmation dialog', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Click delete button
@@ -138,7 +138,7 @@ test.describe('User Profile Management', () => {
 
   test('cancel delete operation from confirmation dialog', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Click delete button
@@ -161,7 +161,7 @@ test.describe('User Profile Management', () => {
 
   test('navigate back from profile page', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Look for close button (usually in top of profile)
@@ -179,7 +179,7 @@ test.describe('User Profile Management', () => {
 
     const { username } = makeUniqueCreds();
 
-    await page.goto('/welcome');
+    await page.goto('/welcome', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
     await expect(page.locator('text=Welcome to MyFlix')).toBeVisible({ timeout: 10000 });
       
@@ -209,7 +209,7 @@ test.describe('User Profile Management', () => {
       timeout: 10000 
     });
     
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Click delete button

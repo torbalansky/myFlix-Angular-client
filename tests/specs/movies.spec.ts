@@ -3,7 +3,7 @@ import { test, expect } from '../fixtures/auth.fixture';
 test.describe('Movie Browsing', () => {
   test('display list of movies after login', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
-    await page.goto('/movies');
+    await page.goto('/movies', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Wait for at least one movie card to render (API/db can be slow in CI)
@@ -12,7 +12,7 @@ test.describe('Movie Browsing', () => {
 
   test('click on a movie card to view details', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
-    await page.goto('/movies');
+    await page.goto('/movies', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Wait for movies API to return and movies to be rendered
@@ -55,7 +55,7 @@ test.describe('Movie Browsing', () => {
 
 
   test('search/filter movies', async ({ authenticatedPage: page }) => {
-    await page.goto('/movies');
+    await page.goto('/movies', { waitUntil: 'domcontentloaded' });
   
     // Wait for movies API to return
     await page.waitForResponse(resp =>
@@ -85,7 +85,7 @@ test.describe('Movie Browsing', () => {
 
   test('navigate back to welcome page using close button', async ({ authenticatedPage: page }) => {
     // Navigate to movies page
-    await page.goto('/movies');
+    await page.goto('/movies', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Look for a close or back button (e.g., in top-bar)

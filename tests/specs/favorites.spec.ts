@@ -2,42 +2,60 @@ import { test, expect } from '../fixtures/auth.fixture';
 
 test.describe('Favorites Management', () => {
   test('add then remove a movie from favorites', async ({ authenticatedPage: page }) => {
-    // Navigate to movies page
-    await page.goto('/movies');
-    await expect(page.locator('app-root')).toBeVisible();
-
-    // Wait for movies API to return and movies to be rendered
-    await page.waitForResponse(resp =>
-      resp.url().includes('/movies') && resp.status() === 200
-    );
-
-    // Find a movie card and its favorite button
-    const firstMovieCard = page.locator('[data-testid^="movie-"]').first();
+    // Navigate using SPA-friendly wait
+    await page.goto('/movies', { waitUntil: 'domcontentloaded' });
+  
+    // Wait for movies to render in the UI (NOT network)
+    const firstMovieCard = page
+      .locator('[data-testid^="movie-"]')
+      .first();
+  
     await expect(firstMovieCard).toBeVisible({ timeout: 60000 });
-
-    // Add to favorites
-    const addToFavButton = firstMovieCard.locator('button:has(mat-icon:has-text("favorite_border"))').first();
-    await expect(addToFavButton).toBeVisible({ timeout: 30000 });
+  
+    // ---- Add to favorites ----
+  
+    const addToFavButton = firstMovieCard
+      .locator('button')
+      .filter({
+        has: page.locator('mat-icon', { hasText: 'favorite_border' }),
+      })
+      .first();
+  
+    await expect(addToFavButton).toBeVisible();
+  
     await addToFavButton.click();
-
-    const addedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /added to favorites/i });
-    await expect(addedSnackbar).toBeVisible({ timeout: 30000 });
-
-    // Wait for UI to reflect favorite state before trying to remove
-    await expect(firstMovieCard.locator('button:has(mat-icon:has-text("favorite"))').first()).toBeVisible({ timeout: 30000 });
-
-    // Remove from favorites (icon may change after adding)
-    const removeFavButton = firstMovieCard.locator('button:has(mat-icon:has-text("favorite"))').first();
-    await expect(removeFavButton).toBeVisible({ timeout: 30000 });
+  
+    const addedSnackbar = page
+      .locator('.mdc-snackbar__label')
+      .filter({ hasText: /added to favorites/i });
+  
+    await expect(addedSnackbar).toBeVisible();
+  
+    // ---- Wait for UI update ----
+  
+    const removeFavButton = firstMovieCard
+      .locator('button')
+      .filter({
+        has: page.locator('mat-icon', { hasText: 'favorite' }),
+      })
+      .first();
+  
+    await expect(removeFavButton).toBeVisible();
+  
+    // ---- Remove from favorites ----
+  
     await removeFavButton.click();
-
-    const removedSnackbar = page.locator('.mdc-snackbar__label').filter({ hasText: /removed from favorites/i });
-    await expect(removedSnackbar).toBeVisible({ timeout: 30000 });
+  
+    const removedSnackbar = page
+      .locator('.mdc-snackbar__label')
+      .filter({ hasText: /removed from favorites/i });
+  
+    await expect(removedSnackbar).toBeVisible();
   });
 
   test('display favorite movies in user profile', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Look for favorite movies section
@@ -57,7 +75,7 @@ test.describe('Favorites Management', () => {
 
   test('remove favorite from profile page', async ({ authenticatedPage: page }) => {
     // Navigate to profile page
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Look for remove buttons in favorites list
@@ -78,11 +96,11 @@ test.describe('Favorites Management', () => {
 
   test('verify empty favorites message when no favorites exist', async ({ page }) => {
     // Start fresh - login
-    await page.goto('/');
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Go to profile
-    await page.goto('/profile');
+    await page.goto('/profile', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('app-root')).toBeVisible();
 
     // Check if empty state message is shown
